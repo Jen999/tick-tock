@@ -1,0 +1,11 @@
+# Gradle lcoal cache and build outputs
+.gradle/
+build/
+out/
+
+# IntelliJ IDEA specific
+.idea/
+*.iml
+
+# Logs and temporary files
+*.log
