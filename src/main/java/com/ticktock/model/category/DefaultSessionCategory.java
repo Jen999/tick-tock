@@ -1,4 +1,4 @@
-package com.ticktock.model;
+package com.ticktock.model.category;
 
 public enum DefaultSessionCategory {
     STUDY,

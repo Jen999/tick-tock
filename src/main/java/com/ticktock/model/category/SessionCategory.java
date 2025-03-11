@@ -1,4 +1,4 @@
-package com.ticktock.model;
+package com.ticktock.model.category;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ public class SessionCategory {
      * @param sessionCategory DefaultSessionCategory object
      * @return true if sessionCategory is added to the set
      */
-    public boolean addSessionCategory(DefaultSessionCategory sessionCategory) {
+    public boolean add(DefaultSessionCategory sessionCategory) {
         return sessionCategories.add(sessionCategory);
     }
 
@@ -29,7 +29,12 @@ public class SessionCategory {
      * @param sessionCategory DefaultSessionCategory object
      * @return true if DefaultSessionCategory object exists
      */
-    public boolean removeSessionCategory(DefaultSessionCategory sessionCategory) {
+    public boolean remove(DefaultSessionCategory sessionCategory) {
         return sessionCategories.remove(sessionCategory);
+    }
+
+    @Override
+    public String toString() {
+        return sessionCategories.toString();
     }
 }
