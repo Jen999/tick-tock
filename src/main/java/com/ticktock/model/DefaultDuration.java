@@ -23,9 +23,12 @@ public enum DefaultDuration {
      * @return String representation of the Duration object
      */
     public String toString() {
-        long numberOfSeconds = getNumberOfSeconds() % 60;
         long numberOfMinutes = getNumberOfSeconds() / 60 % 60;
         long numberOfHours = getNumberOfSeconds() / (60 * 60);
-        return String.format("%02d:%02d:%02d", numberOfHours, numberOfMinutes, numberOfSeconds);
+
+        if (numberOfHours == 0) {
+            return String.format("%02d minutes", numberOfMinutes);
+        }
+        return String.format("%02d hours", numberOfHours);
     }
 }
