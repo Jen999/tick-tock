@@ -1,4 +1,4 @@
-package com.ticktock.model;
+package com.ticktock.model.duration;
 
 public enum DefaultDuration {
     FIFTEEN_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(15)),

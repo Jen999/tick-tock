@@ -1,4 +1,4 @@
-package com.ticktock.model;
+package com.ticktock.model.duration;
 
 import java.time.Duration;
 
