@@ -1,0 +1,29 @@
+.root {
+    -fx-background-color: #A0D6B4;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+}
+
+.button {
+    -fx-background-radius: 20;
+    -fx-padding: 8px 16px;
+    -fx-font-size: 16px;
+}
+
+#startButton {
+    -fx-background-color: #388E3C;
+    -fx-text-fill: white;
+}
+
+#breakButton {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: black;
+}
+
+#endButton {
+    -fx-background-color: #D32F2F;
+    -fx-text-fill: white;
+}

@@ -6,13 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class TickTockApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 400, 500);
+        Scene scene = new Scene(root, 600, 800);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/main.css")).toExternalForm());
+
         primaryStage.setTitle("TickTock");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -22,3 +26,4 @@ public class TickTockApp extends Application {
         launch(args);
     }
 }
+
