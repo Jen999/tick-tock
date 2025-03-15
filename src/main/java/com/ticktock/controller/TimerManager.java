@@ -1,38 +1,76 @@
-package com.ticktock.service;
+package com.ticktock.controller;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TimerManager {
-    private long duration; // Total study time in milliseconds
-    private long remainingTime; // Remaining time when paused
-    private long startTime;
+    private Timer timer;
+    private long duration; // Total duration in ms
+    private long remainingTime; // Remaining time after paused
     private boolean isPaused;
+    private long startTime; // Stores when the timer started
 
-    public TimerManager(long durationInMinutes) {
-        this.duration = durationInMinutes * 60 * 1000; // Convert minutes to milliseconds
+    public TimerManager(long minutes) {
+        this.duration = minutes * 60 * 1000; // Convert minutes to ms
         this.remainingTime = duration;
         this.isPaused = false;
     }
 
     public void start() {
-        if (isPaused) {
-            isPaused = false;
-            startTime = System.currentTimeMillis(); // Resume from paused state
-        } else {
-            startTime = System.currentTimeMillis(); // Start a new session
+        if (timer != null) {
+            timer.cancel();
         }
+        timer = new Timer();
+        startTime = System.currentTimeMillis(); // Get start time
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                long elapsed = System.currentTimeMillis() - startTime;
+                remainingTime = duration - elapsed;
+
+                if (remainingTime <= 0) {
+                    timer.cancel(); // Stop when time runs out
+                    System.out.println("Time's up!");
+                } else {
+                    System.out.println("Time left: " + remainingTime / 1000 + " sec");
+                }
+            }
+        }, 0, 1000); // Runs every 1 second
     }
 
     public void pause() {
         if (!isPaused) {
-            remainingTime -= System.currentTimeMillis() - startTime; // Calculate remaining time
+            remainingTime -= System.currentTimeMillis() - startTime; // Remaining time
             isPaused = true;
+            timer.cancel(); // Stop the timer
+        }
+    }
+
+    public void resume() {
+        if (isPaused) {
+            isPaused = false;
+            startTime = System.currentTimeMillis(); // Reset start time
+            timer = new Timer(); // Create a new timer
+
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    long elapsed = System.currentTimeMillis() - startTime;
+                    remainingTime -= elapsed;
+                    if (remainingTime <= 0) {
+                        timer.cancel();
+                        System.out.println("Time's up!");
+                    } else {
+                        System.out.println("Time left: " + remainingTime / 1000 + " sec");
+                    }
+                }
+            }, 0, 1000);
         }
     }
 
     public long getRemainingTime() {
-        if (isPaused) {
-            return remainingTime;
-        }
-        return Math.max(0, duration - (System.currentTimeMillis() - startTime));
+        return remainingTime;
     }
 
     public boolean isPaused() {
