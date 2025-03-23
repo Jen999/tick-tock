@@ -49,13 +49,13 @@ public class SessionDuration {
         return duration;
     }
 
-    public void reduceTimeFromTimer(long seconds) {
-        durationLeft = getDurationLeft().minusSeconds(seconds);
-        durationPassed = getDurationPassed().plusSeconds(seconds);
+    public void reduceTimeFromTimer(long milliseconds) {
+        durationLeft = getDurationLeft().minusMillis(milliseconds);
+        durationPassed = getDurationPassed().plusMillis(milliseconds);
     }
 
-    public void addTimeToTimer(long seconds) {
-        durationLeft = getDurationLeft().plusSeconds(seconds);
+    public void addTimeToTimer(long milliseconds) {
+        durationLeft = getDurationLeft().plusMillis(milliseconds);
     }
 
     /**
