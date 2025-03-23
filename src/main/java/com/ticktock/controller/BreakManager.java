@@ -1,12 +1,14 @@
 package com.ticktock.controller;
 
+import com.ticktock.model.duration.SessionDuration;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BreakManager {
     private boolean onBreak;
     private long breakStartTime;
-    private List<Long> breakDurations; // Stores all break durations
+    private List<SessionDuration> breakDurations; // Stores all break durations
 
     public BreakManager() {
         this.onBreak = false;
@@ -29,8 +31,12 @@ public class BreakManager {
             onBreak = false;
             long breakEndTime = System.currentTimeMillis();
             long breakDuration = breakEndTime - breakStartTime; // Calculate duration
-            breakDurations.add(breakDuration);
-            System.out.println("Break ended. Duration: " + (breakDuration) + " ms.");
+
+            // convert to seconds
+            breakDuration = breakDuration / 1000;
+            SessionDuration breakSession = new SessionDuration(breakDuration);
+            breakDurations.add(breakSession);
+            System.out.println("Break ended. Duration: " + breakSession.toString());
         } else {
             System.out.println("No active break to stop.");
         }
@@ -38,13 +44,13 @@ public class BreakManager {
 
     public long getTotalBreakTime() {
         long totalBreakTime = 0;
-        for (long duration : breakDurations) {
-            totalBreakTime += duration;
+        for (SessionDuration duration : breakDurations) {
+            totalBreakTime += duration.getDurationPassed().getSeconds();
         }
         return totalBreakTime;
     }
 
-    public List<Long> getBreakDurations() {
+    public List<SessionDuration> getBreakDurations() {
         return new ArrayList<>(breakDurations); // Return a copy to prevent modification
     }
 

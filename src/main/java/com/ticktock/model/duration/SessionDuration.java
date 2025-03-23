@@ -3,7 +3,9 @@ package com.ticktock.model.duration;
 import java.time.Duration;
 
 public class SessionDuration {
-    private Duration duration;
+    private final Duration duration;
+    private Duration durationLeft;
+    private Duration durationPassed;
 
     /**
      * Constructor
@@ -11,9 +13,18 @@ public class SessionDuration {
      * @param minutes Number of minutes for the session (0-59)
      * @param seconds Number of seconds for the session (0-59)
      */
-    public SessionDuration(int hours, int minutes, int seconds) {
+    public SessionDuration(long hours, long minutes, long seconds) {
         assert hours >= 0 && minutes >= 0 && seconds >= 0;
         duration = Duration.ofHours(hours).plusMinutes(minutes).plusSeconds(seconds);
+        durationLeft = Duration.ofHours(hours).plusMinutes(minutes).plusSeconds(seconds);
+        durationPassed = Duration.ofSeconds(Duration.ZERO.getSeconds());
+    }
+
+    public SessionDuration(long seconds) {
+        assert seconds >= 0;
+        duration = Duration.ofSeconds(seconds);
+        durationLeft = Duration.ofSeconds(seconds);
+        durationPassed = Duration.ofSeconds(Duration.ZERO.getSeconds());
     }
 
     /**
@@ -22,30 +33,29 @@ public class SessionDuration {
      */
     public SessionDuration(DefaultDuration duration) {
         this.duration = Duration.ofSeconds(duration.getNumberOfSeconds());
+        durationLeft = Duration.ofSeconds(duration.getNumberOfSeconds());
+        durationPassed = Duration.ofSeconds(Duration.ZERO.getSeconds());
     }
 
-    private Duration getDuration() {
+    public Duration getDurationLeft() {
+        return durationLeft;
+    }
+
+    public Duration getDurationPassed() {
+        return durationPassed;
+    }
+
+    public Duration getDuration() {
         return duration;
     }
 
-    public void minusSeconds(long seconds) {
-        duration = getDuration().minusSeconds(seconds);
+    public void reduceTimeFromTimer(long milliseconds) {
+        durationLeft = getDurationLeft().minusMillis(milliseconds);
+        durationPassed = getDurationPassed().plusMillis(milliseconds);
     }
 
-    public void plusSeconds(long seconds) {
-        duration = getDuration().plusSeconds(seconds);
-    }
-
-    public long getMinutes() {
-        return getDuration().toMinutes();
-    }
-
-    public long getSeconds() {
-        return getDuration().toSeconds();
-    }
-
-    public long getHours() {
-        return getDuration().toHours();
+    public void addTimeToTimer(long milliseconds) {
+        durationLeft = getDurationLeft().plusMillis(milliseconds);
     }
 
     /**
@@ -53,7 +63,7 @@ public class SessionDuration {
      * @param hours Number of hours
      * @return Number of hours in seconds
      */
-    public static long getNumberOfSecondsFromHours(int hours) {
+    public static long getNumberOfSecondsFromHours(long hours) {
         return 3600L * hours;
     }
 
@@ -62,18 +72,27 @@ public class SessionDuration {
      * @param minutes Number of minutes
      * @return Number of minutes in seconds
      */
-    public static long getNumberOfSecondsFromMinutes(int minutes) {
+    public static long getNumberOfSecondsFromMinutes(long minutes) {
         return 60L * minutes;
     }
 
     /**
-     * Returns a String of the duration in HH:MM:SS
+     * Returns a String of the duration left in HH:MM:SS
      * @return String representation of the duration object
      */
-    public String toString() {
-        long numberOfSeconds = getSeconds() % 60;
-        long numberOfMinutes = getSeconds() / 60 % 60;
-        long numberOfHours = getSeconds() / (60 * 60);
+    public String getDurationLeftAsString() {
+        return getDurationAsString(getDurationLeft());
+    }
+
+    public String getDurationPassedAsString() {
+        return getDurationAsString(getDurationPassed());
+    }
+
+    private String getDurationAsString(Duration duration) {
+        int numberOfSeconds = duration.toSecondsPart();
+        int numberOfMinutes = duration.toMinutesPart();
+        int numberOfHours = duration.toHoursPart();
         return String.format("%02d:%02d:%02d", numberOfHours, numberOfMinutes, numberOfSeconds);
     }
+
 }
