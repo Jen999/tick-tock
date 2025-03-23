@@ -9,3 +9,5 @@ out/
 
 # Logs and temporary files
 *.log
+data/
+bin/
