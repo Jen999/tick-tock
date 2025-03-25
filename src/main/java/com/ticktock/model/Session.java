@@ -5,6 +5,7 @@ import com.ticktock.model.category.SessionTagging;
 import com.ticktock.controller.TimerManager;
 import com.ticktock.controller.BreakManager;
 import com.ticktock.model.duration.SessionDuration;
+import com.ticktock.model.breaks.BreakSummary;
 
 public class Session {
     private TimerManager timerManager;
@@ -102,6 +103,10 @@ public class Session {
 
     public SessionDuration getSessionDuration() {
         return sessionDuration;
+    }
+
+    public BreakSummary getBreakSummary() {
+        return breakManager.getBreakSummary();
     }
 }
 

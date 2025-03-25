@@ -3,14 +3,77 @@
     "module": "hi",
     "category": "hi",
     "goalMinutes": 45,
-    "actualTime": "00:00:21",
-    "breakTime": "00:00:00"
+    "actualTime": "00:00:21"
   },
   {
     "module": "sss",
     "category": "ssss",
     "goalMinutes": 30,
-    "actualTime": "00:00:22",
-    "breakTime": "00:00:00"
+    "actualTime": "00:00:22"
+  },
+  {
+    "module": "hi",
+    "category": "hi",
+    "goalMinutes": 60,
+    "actualTime": "00:00:27",
+    "totalBreakTime": "00:00:00",
+    "breakSessions": [
+      "00:00:00",
+      "00:00:00"
+    ]
+  },
+  {
+    "module": "cs2103de",
+    "category": "proj",
+    "goalMinutes": 30,
+    "actualTime": "00:00:19",
+    "totalBreakTime": "00:00:13",
+    "breakSessions": [
+      "00:00:07",
+      "00:00:06"
+    ]
+  },
+  {
+    "module": "cs2100de",
+    "category": "proj",
+    "goalMinutes": 30,
+    "actualTime": "00:00:15",
+    "totalBreakTime": "00:00:00",
+    "breakSessions": [
+      "00:00:00",
+      "00:00:00"
+    ]
+  },
+  {
+    "module": "hi",
+    "category": "hi",
+    "goalMinutes": 45,
+    "actualTime": "00:00:13",
+    "totalBreakTime": "00:00:00",
+    "breakSessions": [
+      "00:00:00",
+      "00:00:00"
+    ]
+  },
+  {
+    "module": "cs2100de",
+    "category": "proj",
+    "goalMinutes": 30,
+    "actualTime": "00:00:16",
+    "totalBreakTime": "00:00:11",
+    "breakSessions": [
+      "00:00:05",
+      "00:00:06"
+    ]
+  },
+  {
+    "module": "cs2100",
+    "category": "proj",
+    "goalMinutes": 15,
+    "actualTime": "00:00:10",
+    "totalBreakTime": "00:00:05",
+    "breakSessions": [
+      "00:00:05"
+    ]
   }
 ]

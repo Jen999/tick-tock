@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -85,6 +86,9 @@ public class MainController {
         startUIUpdater();
     }
 
+    /**
+     * Handle starting and stopping of break sessions
+     */
     private void handleBreakToggle() {
         if (currentSession == null) {
             showAlert("Start a session first.");
@@ -100,6 +104,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Handle ending session
+     */
     private void handleEnd() {
         if (currentSession == null) {
             showAlert("No active session.");
@@ -112,9 +119,17 @@ public class MainController {
         String category = currentSession.getSessionTagging().getCategories().iterator().next();
         int goalInMinutes = (int) currentSession.getSessionDuration().getDuration().toMinutes();
         String actual = currentSession.getSessionDuration().getDurationPassedAsString();
-        String breakTime = formatSeconds(currentSession.getTotalBreakTime());
 
-        SessionService.createAndSaveSession(module, category, goalInMinutes, actual, breakTime);
+        // Get both the total break time and the break sessions
+        long totalBreakSeconds = currentSession.getTotalBreakTime();
+        String totalBreakTime = formatSeconds(totalBreakSeconds);
+        List<String> breakDurations = currentSession.getBreakManager()
+                .getBreakDurations()
+                .stream()
+                .map(SessionDuration::getDurationPassedAsString)
+                .toList();
+
+        SessionService.createAndSaveSession(module, category, goalInMinutes, actual, totalBreakTime, breakDurations);
 
         showAlert("Session saved!");
         resetUI();

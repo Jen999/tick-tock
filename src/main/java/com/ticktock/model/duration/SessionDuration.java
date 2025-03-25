@@ -23,8 +23,8 @@ public class SessionDuration {
     public SessionDuration(long seconds) {
         assert seconds >= 0;
         duration = Duration.ofSeconds(seconds);
-        durationLeft = Duration.ofSeconds(seconds);
-        durationPassed = Duration.ofSeconds(Duration.ZERO.getSeconds());
+        durationLeft = Duration.ZERO;
+        durationPassed = Duration.ofSeconds(seconds);
     }
 
     /**

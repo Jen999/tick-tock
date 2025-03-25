@@ -1,5 +1,6 @@
 package com.ticktock.controller;
 
+import com.ticktock.model.breaks.BreakSummary;
 import com.ticktock.model.duration.SessionDuration;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ public class BreakManager {
     private boolean onBreak;
     private long breakStartTime;
     private List<SessionDuration> breakDurations; // Stores all break durations
+    private SessionDuration currentBreakSession = null;
 
     public BreakManager() {
         this.onBreak = false;
@@ -19,6 +21,7 @@ public class BreakManager {
         if (!onBreak) {
             onBreak = true;
             breakStartTime = System.currentTimeMillis(); // Record start time
+            currentBreakSession = new SessionDuration(0);
             System.out.println("Break started.");
         } else {
             System.out.println("Already on break.");
@@ -27,16 +30,17 @@ public class BreakManager {
 
     // Stop the current break and store the duration
     public void stopBreak() {
-        if (onBreak) {
+        if (onBreak && currentBreakSession != null) {
             onBreak = false;
             long breakEndTime = System.currentTimeMillis();
             long breakDuration = breakEndTime - breakStartTime; // Calculate duration
 
-            // convert to seconds
-            breakDuration = breakDuration / 1000;
-            SessionDuration breakSession = new SessionDuration(breakDuration);
-            breakDurations.add(breakSession);
-            System.out.println("Break ended. Duration: " + breakSession.toString());
+            currentBreakSession.reduceTimeFromTimer(breakDuration);
+
+            breakDurations.add(currentBreakSession);
+            System.out.println("Break ended. Duration: " + currentBreakSession.toString());
+
+            currentBreakSession = null;
         } else {
             System.out.println("No active break to stop.");
         }
@@ -56,6 +60,10 @@ public class BreakManager {
 
     public long getBreakStartTime() {
         return breakStartTime;
+    }
+
+    public BreakSummary getBreakSummary() {
+        return new BreakSummary(getTotalBreakTime(), getBreakDurations());
     }
 
     public boolean isOnBreak() {
