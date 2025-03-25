@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Manages
+ * Manages user interactions with main UI
  */
 public class MainController {
 
@@ -105,7 +105,7 @@ public class MainController {
     }
 
     /**
-     * Handle ending session
+     * Handle ending session and formatting to call createAndSaveSession method
      */
     private void handleEnd() {
         if (currentSession == null) {
@@ -135,6 +135,9 @@ public class MainController {
         resetUI();
     }
 
+    /**
+     * Handles updating of timer and break stopwatch
+     */
     private void startUIUpdater() {
         if (uiUpdater != null) uiUpdater.stop();
 
@@ -148,6 +151,9 @@ public class MainController {
         uiUpdater.play();
     }
 
+    /**
+     * Stop UI Updater
+     */
     private void stopUIUpdater() {
         if (uiUpdater != null) {
             uiUpdater.stop();
@@ -155,6 +161,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Reset UI Updater
+     */
     private void resetUI() {
         moduleField.clear();
         categoryField.clear();
@@ -165,12 +174,14 @@ public class MainController {
         currentSession = null;
     }
 
+    /**
+     * For updating live break stopwatch on UI Updater
+     */
     private long getCurrentBreakTime() {
         if (currentSession == null) return 0;
 
         long total = currentSession.getTotalBreakTime();
         if (currentSession.isOnBreak()) {
-            // Add live break time if currently on break
             long ongoingBreak = (System.currentTimeMillis() - currentSession.getBreakManager().getBreakStartTime()) / 1000;
             return total + ongoingBreak;
         }

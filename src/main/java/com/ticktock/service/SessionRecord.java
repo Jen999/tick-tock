@@ -1,9 +1,10 @@
 package com.ticktock.service;
 
-import com.ticktock.model.duration.SessionDuration;
-
 import java.util.List;
 
+/**
+ * Format session to be handled by SessionService to be stored in Storage
+ */
 public class SessionRecord {
     private String module;
     private String category;
