@@ -54,6 +54,10 @@ public class BreakManager {
         return new ArrayList<>(breakDurations); // Return a copy to prevent modification
     }
 
+    public long getBreakStartTime() {
+        return breakStartTime;
+    }
+
     public boolean isOnBreak() {
         return onBreak;
     }
