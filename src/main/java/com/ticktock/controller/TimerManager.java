@@ -41,10 +41,8 @@ public class TimerManager {
 
     public void pause() {
         if (!isPaused) {
-            long elapsed = System.currentTimeMillis() - startTime; // Remaining time
-            duration.reduceTimeFromTimer(elapsed);
             isPaused = true;
-            timer.cancel(); // Stop the timer
+            timer.cancel();
         }
     }
 
