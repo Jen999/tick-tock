@@ -1,19 +1,12 @@
 package com.ticktock.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,7 +14,7 @@ public class StorageServiceTest {
     private SessionRecord sessionRecordOne;
     private SessionRecord sessionRecordTwo;
     private SessionRecord sessionRecordThree;
-    private static final String RESOURCE_FOLDER = "/StorageService";
+    private static final String RESOURCE_FOLDER = "/service/StorageService";
 
     @BeforeEach
     public void setUp() {
@@ -32,7 +25,7 @@ public class StorageServiceTest {
 
     @Test
     public void loadSessions() throws Exception {
-        List<SessionRecord>  loadedSessionRecords = loadSessionsFromTestResource("/loadSessions.json");
+        List<SessionRecord>  loadedSessionRecords = ServiceUtil.loadSessionsFromTestResource(RESOURCE_FOLDER, "/loadSessions.json");
 
         List<SessionRecord> sessionRecords = new ArrayList<>();
         sessionRecords.add(sessionRecordOne);
@@ -69,7 +62,7 @@ public class StorageServiceTest {
 
         // load the test records
         List<SessionRecord> actualSaveData = StorageService.loadSessions("saveSessionsActual.json");
-        List<SessionRecord> expectedSaveData = loadSessionsFromTestResource("/saveSessionsExpected.json");
+        List<SessionRecord> expectedSaveData = ServiceUtil.loadSessionsFromTestResource(RESOURCE_FOLDER, "/saveSessionsExpected.json");
 
         // assert that they have the same size
         assertEquals(actualSaveData.size(), expectedSaveData.size());
@@ -88,21 +81,5 @@ public class StorageServiceTest {
         Paths.get("data/saveSessionsActual.json").toFile().deleteOnExit();
     }
 
-    /**
-     * Private method to mimic loading test data from test resources
-     * @param filename file to load
-     * @return List of SessionRecord
-     */
-    private List<SessionRecord> loadSessionsFromTestResource(String filename) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Type listType = new TypeToken<List<SessionRecord>>() {}.getType();
 
-        String fullPath = RESOURCE_FOLDER + filename;
-        Reader reader = new InputStreamReader(
-                Objects.requireNonNull(
-                        StorageServiceTest.class.getResourceAsStream(fullPath)
-                )
-        );
-        return gson.fromJson(reader, listType);
-    };
 }
