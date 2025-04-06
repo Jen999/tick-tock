@@ -11,6 +11,7 @@ public class TimerManager {
     private boolean isPaused;
     private long startTime; // Stores when the timer started
     private static final int REFRESH_PERIOD = 1000;
+    private static final int DELAY = 250;
 
     public TimerManager(SessionDuration sessionDuration) {
         this.duration = sessionDuration;
@@ -36,7 +37,7 @@ public class TimerManager {
                     System.out.println("Time left: " + duration.getDurationLeftAsString());
                 }
             }
-        }, 0, TimerManager.REFRESH_PERIOD); // Runs every 1 second
+        }, TimerManager.DELAY, TimerManager.REFRESH_PERIOD); // Runs every 1 second
     }
 
     public void pause() {
@@ -64,7 +65,7 @@ public class TimerManager {
                         System.out.println("Time left: " + duration.getDurationLeftAsString());
                     }
                 }
-            }, 0, TimerManager.REFRESH_PERIOD);
+            }, TimerManager.DELAY, TimerManager.REFRESH_PERIOD);
         }
     }
 
