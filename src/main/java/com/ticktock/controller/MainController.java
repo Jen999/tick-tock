@@ -75,7 +75,9 @@ public class MainController {
 
         switch (label) {
             case "Start" -> {
-                // Start session
+                /*
+                Start session
+                 */
                 String module = moduleField.getText().trim();
                 String category = categoryField.getText().trim();
                 DefaultDuration selectedDuration = durationDropdown.getValue();
@@ -92,7 +94,9 @@ public class MainController {
                 sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
                 startUIUpdater();
             }
-
+            /*
+            Start break and pause session
+             */
             case "Break" -> {
                 if (currentSession != null && !currentSession.isOnBreak()) {
                     currentSession.startBreak();
@@ -100,7 +104,9 @@ public class MainController {
                     sessionToggleButton.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"); // yellow
                 }
             }
-
+            /*
+            End break and resume session
+             */
             case "Resume" -> {
                 if (currentSession != null && currentSession.isOnBreak()) {
                     currentSession.stopBreak();
@@ -178,6 +184,9 @@ public class MainController {
         durationDropdown.getSelectionModel().clearSelection();
         timerLabel.setText("00:00:00");
         breakTimeLabel.setText("Break Time: 00:00:00");
+        /*
+        Set start-break toggle back to 'Start'
+         */
         sessionToggleButton.setText("Start");
         sessionToggleButton.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"); // green
         currentSession = null;

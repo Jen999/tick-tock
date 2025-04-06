@@ -19,43 +19,5 @@
     "breakSessions": [
       "00:00:05"
     ]
-  },
-  {
-    "module": "cs2100de",
-    "category": "tP",
-    "goalMinutes": 45,
-    "actualTime": "00:00:12",
-    "totalBreakTime": "00:00:03",
-    "breakSessions": [
-      "00:00:03"
-    ]
-  },
-  {
-    "module": "cs2103de",
-    "category": "tP",
-    "goalMinutes": 45,
-    "actualTime": "00:00:40",
-    "totalBreakTime": "00:00:00",
-    "breakSessions": []
-  },
-  {
-    "module": "cs2103de",
-    "category": "tP",
-    "goalMinutes": 45,
-    "actualTime": "00:00:10",
-    "totalBreakTime": "00:00:02",
-    "breakSessions": [
-      "00:00:02"
-    ]
-  },
-  {
-    "module": "cs2103de",
-    "category": "tP",
-    "goalMinutes": 45,
-    "actualTime": "00:00:48",
-    "totalBreakTime": "00:00:29",
-    "breakSessions": [
-      "00:00:29"
-    ]
   }
 ]
