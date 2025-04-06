@@ -37,10 +37,9 @@
 
     <!-- Control Buttons -->
     <HBox alignment="CENTER" spacing="15">
-        <Button fx:id="startButton" text="Start"
+        <Button fx:id="sessionToggleButton"
+                text="Start"
                 style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;" />
-        <Button fx:id="breakButton" text="Break"
-                style="-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;" />
         <Button fx:id="endButton" text="End"
                 style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-size: 16px;" />
     </HBox>
