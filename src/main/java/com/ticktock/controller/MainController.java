@@ -4,6 +4,7 @@ import com.ticktock.model.Session;
 import com.ticktock.model.duration.DefaultDuration;
 import com.ticktock.model.duration.SessionDuration;
 import com.ticktock.service.SessionService;
+import com.ticktock.service.StorageService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -143,7 +144,7 @@ public class MainController {
                 .map(SessionDuration::getDurationPassedAsString)
                 .toList();
 
-        SessionService.createAndSaveSession(module, category, goalInMinutes, actual, totalBreakTime, breakDurations);
+        SessionService.createAndSaveSession(module, category, goalInMinutes, actual, totalBreakTime, breakDurations, StorageService.getFileName());
 
         showAlert("Session saved!");
         resetUI();
