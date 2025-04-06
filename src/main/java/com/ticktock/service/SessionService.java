@@ -12,8 +12,8 @@ public class SessionService {
 
         SessionRecord record = new SessionRecord(module, category, goalInMinutes, actual, totalBreakTime, breakDurations);
 
-        List<SessionRecord> sessions = StorageService.loadSessions();
+        List<SessionRecord> sessions = StorageService.loadSessions(StorageService.getFileName());
         sessions.add(record);
-        StorageService.saveSessions(sessions);
+        StorageService.saveSessions(sessions, StorageService.getFileName());
     }
 }

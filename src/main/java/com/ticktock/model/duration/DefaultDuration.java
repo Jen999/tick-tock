@@ -29,6 +29,6 @@ public enum DefaultDuration {
         if (numberOfHours == 0) {
             return String.format("%02d minutes", numberOfMinutes);
         }
-        return String.format("%02d hours", numberOfHours);
+        return String.format("%d hours", numberOfHours);
     }
 }
