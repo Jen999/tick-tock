@@ -71,5 +71,9 @@ public class StorageServiceTest {
         Paths.get("data/saveSessionsActual.json").toFile().deleteOnExit();
     }
 
+    @Test
+    public void getFileName() {
+        assertEquals("sessions.json", StorageService.getFileName());
+    }
 
 }
