@@ -23,7 +23,7 @@ public class MainController {
     @FXML private TextField moduleField, categoryField;
     @FXML private ComboBox<DefaultDuration> durationDropdown;
     @FXML private Label timerLabel, breakTimeLabel;
-    @FXML private Button startButton, breakButton, endButton;
+    @FXML private Button sessionToggleButton, endButton;
     @FXML private ImageView hourglassImage;
 
     private Session currentSession;
@@ -36,8 +36,7 @@ public class MainController {
         hourglassImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/hourglass.png")).toExternalForm()));
         setupDurationOptions();
 
-        startButton.setOnAction(e -> handleStart());
-        breakButton.setOnAction(e -> handleBreakToggle());
+        sessionToggleButton.setOnAction(e -> handleSessionToggle());
         endButton.setOnAction(e -> handleEnd());
     }
 
@@ -67,42 +66,57 @@ public class MainController {
     }
 
     /**
-     * Set up session when module, category, and duration is filled
+     * Handle Start-Break toggle
+     * Set up session when module, category, and duration is filled and change to 'Break'
+     * Toggle between 'Break' and 'Resume' subsequently, until session is ended
      */
-    private void handleStart() {
-        String module = moduleField.getText().trim();
-        String category = categoryField.getText().trim();
-        DefaultDuration selectedDuration = durationDropdown.getValue();
+    private void handleSessionToggle() {
+        String label = sessionToggleButton.getText();
 
-        if (module.isEmpty() || category.isEmpty() || selectedDuration == null) {
-            showAlert("Please fill in all fields: Module, Category, and Duration.");
-            return;
+        switch (label) {
+            case "Start" -> {
+                /*
+                Start session
+                 */
+                String module = moduleField.getText().trim();
+                String category = categoryField.getText().trim();
+                DefaultDuration selectedDuration = durationDropdown.getValue();
+
+                if (module.isEmpty() || category.isEmpty() || selectedDuration == null) {
+                    showAlert("Please fill in all fields: Module, Category, and Duration.");
+                    return;
+                }
+
+                SessionDuration sessionDuration = new SessionDuration(selectedDuration);
+                currentSession = new Session(sessionDuration, module, category);
+                currentSession.startSession();
+                sessionToggleButton.setText("Break");
+                sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
+                startUIUpdater();
+            }
+            /*
+            Start break and pause session
+             */
+            case "Break" -> {
+                if (currentSession != null && !currentSession.isOnBreak()) {
+                    currentSession.startBreak();
+                    sessionToggleButton.setText("Resume");
+                    sessionToggleButton.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"); // yellow
+                }
+            }
+            /*
+            End break and resume session
+             */
+            case "Resume" -> {
+                if (currentSession != null && currentSession.isOnBreak()) {
+                    currentSession.stopBreak();
+                    sessionToggleButton.setText("Break");
+                    sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
+                }
+            }
         }
-
-        SessionDuration sessionDuration = new SessionDuration(selectedDuration);
-        currentSession = new Session(sessionDuration, module, category);
-        currentSession.startSession();
-
-        startUIUpdater();
     }
 
-    /**
-     * Handle starting and stopping of break sessions
-     */
-    private void handleBreakToggle() {
-        if (currentSession == null) {
-            showAlert("Start a session first.");
-            return;
-        }
-
-        if (!currentSession.isOnBreak()) {
-            currentSession.startBreak();
-            breakButton.setText("Resume");
-        } else {
-            currentSession.stopBreak();
-            breakButton.setText("Break");
-        }
-    }
 
     /**
      * Handle ending session and formatting to call createAndSaveSession method
@@ -170,7 +184,11 @@ public class MainController {
         durationDropdown.getSelectionModel().clearSelection();
         timerLabel.setText("00:00:00");
         breakTimeLabel.setText("Break Time: 00:00:00");
-        breakButton.setText("Break");
+        /*
+        Set start-break toggle back to 'Start'
+         */
+        sessionToggleButton.setText("Start");
+        sessionToggleButton.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"); // green
         currentSession = null;
     }
 
