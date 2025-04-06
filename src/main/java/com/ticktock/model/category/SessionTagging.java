@@ -10,7 +10,7 @@ import java.util.Set;
 public class SessionTagging {
     private Module module;
     private Set<String> categories;
-
+    private boolean isCategoriesFinalized;
     /**
      * Constructor for predefined category.
      * @param moduleName Name of the module.
@@ -20,6 +20,7 @@ public class SessionTagging {
         this.module = new Module(moduleName);
         this.categories = new HashSet<>();
         this.categories.add(defaultCategory.name());
+        this.isCategoriesFinalized = false;  //Categories can be modified initially but not after starting the time
     }
 
     /**
@@ -38,6 +39,7 @@ public class SessionTagging {
      * @return Module name as string.
      */
     public String getModuleName() {
+
         return module.getModuleName();
     }
 
@@ -46,6 +48,7 @@ public class SessionTagging {
      * @param moduleName New module name.
      */
     public void setModule(String moduleName) {
+
         this.module = new Module(moduleName);
     }
 
@@ -55,6 +58,7 @@ public class SessionTagging {
      * @return true if added, false if already exists.
      */
     public boolean addCategory(DefaultSessionCategory category) {
+
         return categories.add(category.name());
     }
 
@@ -64,6 +68,7 @@ public class SessionTagging {
      * @return true if added, false if already exists.
      */
     public boolean addCategory(String category) {
+
         return categories.add(category);
     }
 
@@ -73,6 +78,7 @@ public class SessionTagging {
      * @return true if removed, false if not found.
      */
     public boolean removeCategory(String category) {
+
         return categories.remove(category);
     }
 
@@ -81,11 +87,17 @@ public class SessionTagging {
      * @return Set of category names.
      */
     public Set<String> getCategories() {
+
         return categories;
     }
 
     @Override
     public String toString() {
+
         return "Module: " + module.getModuleName() + ", Categories: " + categories;
     }
+    public void finalizeCategories() {
+        this.isCategoriesFinalized = true;
+    }
+
 }
