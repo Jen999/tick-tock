@@ -21,4 +21,28 @@ public class SessionRecord {
         this.totalBreakTime = totalBreakTime;
         this.breakSessions = breakSessions;
     }
+
+    public String getModule() {
+        return module;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getGoalMinutes() {
+        return goalMinutes;
+    }
+
+    public String getActualTime() {
+        return actualTime;
+    }
+
+    public String getTotalBreakTime() {
+        return totalBreakTime;
+    }
+
+    public List<String> getBreakSessions() {
+        return breakSessions;
+    }
 }

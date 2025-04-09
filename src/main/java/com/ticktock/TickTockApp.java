@@ -12,7 +12,7 @@ public class TickTockApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/main.fxml"));
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 400, 500);
+        Scene scene = new Scene(root, 500, 700);
         primaryStage.setTitle("TickTock");
         primaryStage.setScene(scene);
         primaryStage.show();
