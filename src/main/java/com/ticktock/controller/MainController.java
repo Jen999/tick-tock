@@ -7,13 +7,20 @@ import com.ticktock.service.SessionService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Manages user interactions with main UI
@@ -25,7 +32,9 @@ public class MainController {
     @FXML private Label timerLabel, breakTimeLabel;
     @FXML private Button sessionToggleButton, endButton;
     @FXML private ImageView hourglassImage;
+    @FXML private Button statsButton;
 
+    private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
     private Session currentSession;
     private Timeline uiUpdater;
 
@@ -38,6 +47,25 @@ public class MainController {
 
         sessionToggleButton.setOnAction(e -> handleSessionToggle());
         endButton.setOnAction(e -> handleEnd());
+        statsButton.setOnAction(e -> handleStatsPage());
+    }
+
+    /**
+     * Handle stats page navigating
+     */
+    @FXML
+    private void handleStatsPage() {
+        // Load the Stats page using FXMLLoader
+        try {
+            Parent statsPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/stats.fxml")));
+            Scene statsScene = new Scene(statsPage, 500, 700);
+            // Get current window
+            Stage currentStage = (Stage) statsButton.getScene().getWindow();
+            // Set new scene for stats page
+            currentStage.setScene(statsScene);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Failed to load stats page", e);
+        }
     }
 
     /**
