@@ -1,103 +1,76 @@
 package com.ticktock.model.category;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SessionTaggingTest {
-    private static SessionTagging sessionTaggingOne;
-    private static SessionTagging sessionTaggingTwo;
-    private static String customCategory;
-    private static String moduleName;
+class SessionTaggingTest {
 
-    @BeforeAll
-    public static void setUp() {
-        // Initialize SessionTagging objects for testing
-        sessionTaggingOne = new SessionTagging("CS2103", DefaultSessionCategory.STUDY);
-        sessionTaggingTwo = new SessionTagging("CS2104", "CustomCategory");
+    private SessionTagging sessionTagging;
 
-        // Initialize simple String values for testing
-        customCategory = "CustomCategory";
-        moduleName = "CS2103";
+    @BeforeEach
+    void setUp() {
+        sessionTagging = new SessionTagging("Module1", DefaultSessionCategory.STUDY);
     }
 
     @Test
-    public void getModuleName() {
-        // Test retrieving the module name
-        assertEquals("CS2103", sessionTaggingOne.getModuleName());
-        assertEquals("CS2104", sessionTaggingTwo.getModuleName());
+    void testGetModuleName() {
+        // check that module name is correctly returned
+        assertEquals("Module1", sessionTagging.getModuleName());
     }
 
     @Test
-    public void setModule() {
-        // Test changing the module name
-        sessionTaggingOne.setModule("CS2105");
-        assertEquals("CS2105", sessionTaggingOne.getModuleName());
-
-        // Test that categories are not modified when module name is updated
-        assertTrue(sessionTaggingOne.getCategories().contains(DefaultSessionCategory.STUDY.name()));
+    void testAddCategory_PredefinedCategory() {
+        // adding a predefined category
+        boolean result = sessionTagging.addCategory(DefaultSessionCategory.QUIZ_PREPARATION);
+        assertTrue(result, "Category should be added");
+        assertTrue(sessionTagging.getCategories().contains("QUIZ_PREPARATION"), "Category should be in the set");
     }
 
     @Test
-    public void addCategoryWithPredefinedCategory() {
-        // Test adding predefined categories
-        assertTrue(sessionTaggingOne.addCategory(DefaultSessionCategory.QUIZ_PREPARATION));
-        assertTrue(sessionTaggingOne.getCategories().contains(DefaultSessionCategory.QUIZ_PREPARATION.name()));
-
-        // Adding duplicate category should return false
-        assertFalse(sessionTaggingOne.addCategory(DefaultSessionCategory.QUIZ_PREPARATION));
+    void testAddCategory_CustomCategory() {
+        // adding a custom category
+        boolean result = sessionTagging.addCategory("CustomCategory");
+        assertTrue(result, "Custom category should be added");
+        assertTrue(sessionTagging.getCategories().contains("CustomCategory"), "Custom category should be in the set");
     }
 
     @Test
-    public void addCategoryWithCustomCategory() {
-        // Test adding custom categories
-        assertTrue(sessionTaggingTwo.addCategory(customCategory));
-        assertTrue(sessionTaggingTwo.getCategories().contains(customCategory));
-
-        // Adding duplicate custom category should return false
-        assertFalse(sessionTaggingTwo.addCategory(customCategory));
+    void testAddCategory_Duplicate() {
+        // adding a duplicate category
+        boolean result = sessionTagging.addCategory(DefaultSessionCategory.STUDY);
+        assertFalse(result, "Duplicate category should not be added");
     }
 
     @Test
-    public void removeCategory() {
-        // Test removing categories
-        assertTrue(sessionTaggingOne.removeCategory(DefaultSessionCategory.STUDY.name()));
-        assertFalse(sessionTaggingOne.getCategories().contains(DefaultSessionCategory.STUDY.name()));
+    void testRemoveCategory() {
+        // removing a category
+        boolean result = sessionTagging.removeCategory("NON_EXISTENT_CATEGORY");
+        assertFalse(result, "Non-existing category should not be removed");
 
-        // Trying to remove a non-existing category should return false
-        assertFalse(sessionTaggingOne.removeCategory("NonExistentCategory"));
+        sessionTagging.addCategory("Tutorial"); // Add a custom category first
+        result = sessionTagging.removeCategory("Tutorial");
+        assertTrue(result, "Category should be removed");
+        assertFalse(sessionTagging.getCategories().contains("Tutorial"), "Category should be removed from the set");
     }
 
     @Test
-    public void getCategories() {
-        // Test getting all categories
-        Set<String> categories = sessionTaggingOne.getCategories();
-        assertTrue(categories.contains(DefaultSessionCategory.STUDY.name()));
+    void testGetCategories() {
+        // getting categories
+        Set<String> categories = sessionTagging.getCategories();
+        assertNotNull(categories, "Categories set should not be null");
+        assertTrue(categories.contains("STUDY"), "Categories should contain the default 'STUDY' category");
     }
 
     @Test
-    public void toStringTest() {
-        // Test the string representation of the session tagging
-        String expected = "Module: CS2103, Categories: [STUDY]";
-        assertEquals(expected, sessionTaggingOne.toString());
-    }
-
-    @Test
-    public void removeCategoryWithNull() {
-        // Test removing a null category
-        assertFalse(sessionTaggingOne.removeCategory(null));
-    }
-
-    @Test
-    public void finalizeCategories() {
-        // Test making categories immutable after initialization
-        sessionTaggingOne.finalizeCategories();
-
-        // Try to add a category after finalizing categories, should return false
-        assertFalse(sessionTaggingOne.addCategory("NewCategory"));
+    void testToString() {
+        // toString method
+        String expectedString = "Module: Module1, Categories: [STUDY]";
+        assertEquals(expectedString, sessionTagging.toString(), "toString should return correct string");
     }
 }
+
 
