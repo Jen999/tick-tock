@@ -6,6 +6,7 @@ import com.ticktock.controller.TimerManager;
 import com.ticktock.controller.BreakManager;
 import com.ticktock.model.duration.SessionDuration;
 import com.ticktock.model.breaks.BreakSummary;
+import com.ticktock.model.duration.SessionDurationEnum;
 
 public class Session {
     private TimerManager timerManager;
@@ -47,6 +48,10 @@ public class Session {
         this.timerManager = new TimerManager(sessionDuration);
         this.breakManager = new BreakManager();
         this.sessionTagging = new SessionTagging(moduleName, customCategory);
+    }
+
+    public Session(SessionDurationEnum sessionDurationEnum, String moduleName, DefaultSessionCategory... categories) {
+        this(new SessionDuration(sessionDurationEnum), moduleName, categories);
     }
 
     public void startSession() {

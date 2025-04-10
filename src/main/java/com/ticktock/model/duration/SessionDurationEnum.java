@@ -1,6 +1,6 @@
 package com.ticktock.model.duration;
 
-public enum DefaultDuration {
+public enum SessionDurationEnum {
     FIFTEEN_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(15)),
     THIRTY_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(30)),
     FORTY_FIVE_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(45)),
@@ -10,7 +10,7 @@ public enum DefaultDuration {
 
     private final long numberOfSeconds;
 
-    DefaultDuration(long numberOfSeconds) {
+    SessionDurationEnum(long numberOfSeconds) {
         this.numberOfSeconds = numberOfSeconds;
     }
 

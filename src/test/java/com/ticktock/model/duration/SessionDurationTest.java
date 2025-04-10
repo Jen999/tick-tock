@@ -12,7 +12,7 @@ public class SessionDurationTest {
     @BeforeEach
     public void setUp() {
         sessionDurationOne = new SessionDuration(1, 30, 30);
-        sessionDurationTwo = new SessionDuration(DefaultDuration.TWO_HOURS);
+        sessionDurationTwo = new SessionDuration(SessionDurationEnum.TWO_HOURS);
     }
 
     @Test
