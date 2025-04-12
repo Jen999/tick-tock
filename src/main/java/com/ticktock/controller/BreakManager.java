@@ -49,9 +49,9 @@ public class BreakManager {
     public long getTotalBreakTime() {
         long totalBreakTime = 0;
         for (SessionDuration duration : breakDurations) {
-            totalBreakTime += duration.getDurationPassed().getSeconds();
+            totalBreakTime += duration.getDurationPassed().toMillis();
         }
-        return totalBreakTime;
+        return totalBreakTime / 1000;
     }
 
     public List<SessionDuration> getBreakDurations() {
