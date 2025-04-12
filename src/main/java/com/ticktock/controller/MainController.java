@@ -4,6 +4,8 @@ import com.ticktock.model.Session;
 import com.ticktock.model.duration.SessionDurationEnum;
 import com.ticktock.model.duration.SessionDuration;
 import com.ticktock.service.SessionService;
+import com.ticktock.util.SessionContext;
+
 import com.ticktock.service.StorageService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -43,6 +45,20 @@ public class MainController {
      * Initialize set up when FXML is loaded by TickTockApp
      */
     public void initialize() {
+        Session restored = SessionContext.getCurrentSession();
+        if (restored != null) {
+            currentSession = restored;
+            sessionToggleButton.setText(currentSession.isOnBreak() ? "Resume" : "Break");
+            sessionToggleButton.setStyle(currentSession.isOnBreak()
+                    ? "-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"
+                    : "-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;");
+            moduleField.setText(currentSession.getSessionTagging().getModuleName());
+            categoryField.setText(currentSession.getSessionTagging().getCategories().iterator().next());
+            SessionDurationEnum sessionDurationEnum = currentSession.getSessionDuration().getSessionDurationEnum(); // Assuming a method like this exists
+            durationDropdown.setValue(sessionDurationEnum);
+            startUIUpdater();
+        }
+
         hourglassImage.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/hourglass.png")).toExternalForm()));
         setupDurationOptions();
 
@@ -176,6 +192,8 @@ public class MainController {
 
         showAlert("Session saved!");
         resetUI();
+        SessionContext.clear();
+
     }
 
     /**
@@ -186,6 +204,7 @@ public class MainController {
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
+                currentSession.getTimerManager().tick(); //
                 timerLabel.setText(currentSession.getSessionDuration().getDurationLeftAsString());
                 breakTimeLabel.setText("Break Time: " + formatSeconds(getCurrentBreakTime()));
             }

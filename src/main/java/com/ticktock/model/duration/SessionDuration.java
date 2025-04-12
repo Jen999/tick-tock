@@ -95,4 +95,14 @@ public class SessionDuration {
         return String.format("%02d:%02d:%02d", numberOfHours, numberOfMinutes, numberOfSeconds);
     }
 
+    /** Returns the corresponding SessionDurationEnum based on the current duration in seconds, or null if no match is found. */
+    public SessionDurationEnum getSessionDurationEnum() {
+        for (SessionDurationEnum enumValue : SessionDurationEnum.values()) {
+            if (enumValue.getNumberOfSeconds() == this.duration.getSeconds()) {
+                return enumValue;
+            }
+        }
+        return null;
+    }
+
 }
