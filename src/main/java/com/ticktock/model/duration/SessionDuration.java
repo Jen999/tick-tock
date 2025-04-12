@@ -31,7 +31,7 @@ public class SessionDuration {
      * Construct a SessionDuration object from the DefaultDuration enum
      * @param duration DefaultDuration enum
      */
-    public SessionDuration(DefaultDuration duration) {
+    public SessionDuration(SessionDurationEnum duration) {
         this.duration = Duration.ofSeconds(duration.getNumberOfSeconds());
         durationLeft = Duration.ofSeconds(duration.getNumberOfSeconds());
         durationPassed = Duration.ofSeconds(Duration.ZERO.getSeconds());

@@ -5,22 +5,22 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DefaultDurationTest {
-    private static DefaultDuration durationFifteenMinutes;
-    private static DefaultDuration durationThirtyMinutes;
-    private static DefaultDuration durationFourtyFiveMinutes;
-    private static DefaultDuration durationOneHour;
-    private static DefaultDuration durationTwoHours;
-    private static DefaultDuration durationThreeHours;
+public class SessionDurationEnumTest {
+    private static SessionDurationEnum durationFifteenMinutes;
+    private static SessionDurationEnum durationThirtyMinutes;
+    private static SessionDurationEnum durationFourtyFiveMinutes;
+    private static SessionDurationEnum durationOneHour;
+    private static SessionDurationEnum durationTwoHours;
+    private static SessionDurationEnum durationThreeHours;
 
     @BeforeAll
     public static void setUp() {
-        durationFifteenMinutes = DefaultDuration.FIFTEEN_MINUTES;
-        durationThirtyMinutes = DefaultDuration.THIRTY_MINUTES;
-        durationFourtyFiveMinutes = DefaultDuration.FORTY_FIVE_MINUTES;
-        durationOneHour = DefaultDuration.ONE_HOUR;
-        durationTwoHours = DefaultDuration.TWO_HOURS;
-        durationThreeHours = DefaultDuration.THREE_HOURS;}
+        durationFifteenMinutes = SessionDurationEnum.FIFTEEN_MINUTES;
+        durationThirtyMinutes = SessionDurationEnum.THIRTY_MINUTES;
+        durationFourtyFiveMinutes = SessionDurationEnum.FORTY_FIVE_MINUTES;
+        durationOneHour = SessionDurationEnum.ONE_HOUR;
+        durationTwoHours = SessionDurationEnum.TWO_HOURS;
+        durationThreeHours = SessionDurationEnum.THREE_HOURS;}
 
     @Test
     public void getNumberOfSeconds() {
