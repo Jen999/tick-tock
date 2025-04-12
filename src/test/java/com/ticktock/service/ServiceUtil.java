@@ -32,17 +32,24 @@ public class ServiceUtil {
         return gson.fromJson(reader, listType);
     };
 
-    static boolean isSessionRecordEqual(SessionRecord sessionRecord1, SessionRecord sessionRecord2) throws IllegalAccessException {
-        // make use of reflection to get private variables
-        Field[] fields = SessionRecord.class.getDeclaredFields();
-
-        for (Field field : fields) {
-            field.setAccessible(true);
-            Object createdVal = field.get(sessionRecord1);
-            Object savedVal = field.get(sessionRecord2);
-            if (!createdVal.equals(savedVal)) {
-                return false;
-            }
+    static boolean isSessionRecordEqual(SessionRecord sessionRecord1, SessionRecord sessionRecord2) {
+        if (!sessionRecord1.getModule().equals(sessionRecord2.getModule())) {
+            return false;
+        }
+        if (!sessionRecord1.getCategory().equals(sessionRecord2.getCategory())) {
+            return false;
+        }
+        if (!(sessionRecord1.getGoalMinutes() == sessionRecord2.getGoalMinutes())) {
+            return false;
+        }
+        if (!sessionRecord1.getActualTime().equals(sessionRecord2.getActualTime())) {
+            return false;
+        }
+        if (!sessionRecord1.getTotalBreakTime().equals(sessionRecord2.getTotalBreakTime())) {
+            return false;
+        }
+        if (!sessionRecord1.getBreakSessions().equals(sessionRecord2.getBreakSessions())) {
+            return false;
         }
         return true;
     }
