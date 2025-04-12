@@ -15,7 +15,7 @@ public class SessionServiceTest {
     private static final String SAVE_FILE_NAME = "actualSessionService.json";
 
     @Test
-    public void createAndSaveSession() throws IllegalAccessException {
+    public void createAndSaveSession() {
         SessionService.createAndSaveSession(
                 "cs2100",
                 "proj",
