@@ -48,12 +48,12 @@ public class SessionTagging {
     public void setModule(String moduleName) {
         this.module = new Module(moduleName);
     }
-
     /**
      * Adds a predefined category.
      * @param category Default session category.
      * @return true if added, false if already exists.
      */
+
     public boolean addCategory(DefaultSessionCategory category) {
         return categories.add(category.name());
     }
