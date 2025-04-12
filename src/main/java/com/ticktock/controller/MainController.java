@@ -1,7 +1,7 @@
 package com.ticktock.controller;
 
 import com.ticktock.model.Session;
-import com.ticktock.model.duration.DefaultDuration;
+import com.ticktock.model.duration.SessionDurationEnum;
 import com.ticktock.model.duration.SessionDuration;
 import com.ticktock.service.SessionService;
 import javafx.animation.KeyFrame;
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 public class MainController {
 
     @FXML private TextField moduleField, categoryField;
-    @FXML private ComboBox<DefaultDuration> durationDropdown;
+    @FXML private ComboBox<SessionDurationEnum> durationDropdown;
     @FXML private Label timerLabel, breakTimeLabel;
     @FXML private Button sessionToggleButton, endButton;
     @FXML private ImageView hourglassImage;
@@ -72,13 +72,13 @@ public class MainController {
      * Set up duration dropdowns from DefaultDuration
      */
     private void setupDurationOptions() {
-        durationDropdown.getItems().addAll(DefaultDuration.values());
+        durationDropdown.getItems().addAll(SessionDurationEnum.values());
         durationDropdown.setPromptText("Select Duration");
 
         // Display readable duration text in list instead of enum variable name
         durationDropdown.setCellFactory(lv -> new ListCell<>() {
             @Override
-            protected void updateItem(DefaultDuration item, boolean empty) {
+            protected void updateItem(SessionDurationEnum item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.toString());
             }
@@ -86,7 +86,7 @@ public class MainController {
         // Display readable duration text when selected instead of enum variable name
         durationDropdown.setButtonCell(new ListCell<>() {
             @Override
-            protected void updateItem(DefaultDuration item, boolean empty) {
+            protected void updateItem(SessionDurationEnum item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.toString());
             }
@@ -108,7 +108,7 @@ public class MainController {
                  */
                 String module = moduleField.getText().trim();
                 String category = categoryField.getText().trim();
-                DefaultDuration selectedDuration = durationDropdown.getValue();
+                SessionDurationEnum selectedDuration = durationDropdown.getValue();
 
                 if (module.isEmpty() || category.isEmpty() || selectedDuration == null) {
                     showAlert("Please fill in all fields: Module, Category, and Duration.");
