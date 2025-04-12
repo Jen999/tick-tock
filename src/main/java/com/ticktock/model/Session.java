@@ -94,6 +94,10 @@ public class Session {
         return breakManager;
     }
 
+    public TimerManager getTimerManager() {
+        return timerManager;
+    }
+
     public boolean isOnBreak() {
         return breakManager.isOnBreak();
     }

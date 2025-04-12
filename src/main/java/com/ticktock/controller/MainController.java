@@ -185,6 +185,7 @@ public class MainController {
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
+                currentSession.getTimerManager().tick(); //
                 timerLabel.setText(currentSession.getSessionDuration().getDurationLeftAsString());
                 breakTimeLabel.setText("Break Time: " + formatSeconds(getCurrentBreakTime()));
             }
