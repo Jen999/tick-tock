@@ -134,6 +134,7 @@ public class MainController {
 
                 SessionDuration sessionDuration = new SessionDuration(selectedDuration);
                 currentSession = new Session(sessionDuration, module, category);
+                SessionContext.setCurrentSession(currentSession);
                 currentSession.startSession();
                 sessionToggleButton.setText("Break");
                 sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
