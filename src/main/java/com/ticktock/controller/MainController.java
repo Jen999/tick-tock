@@ -39,7 +39,7 @@ public class MainController {
 
     private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
     private Session currentSession;
-    private Timeline uiUpdater;
+    private static Timeline uiUpdater;
 
     /**
      * Initialize set up when FXML is loaded by TickTockApp
@@ -201,7 +201,10 @@ public class MainController {
      * Handles updating of timer and break stopwatch
      */
     private void startUIUpdater() {
-        if (uiUpdater != null) uiUpdater.stop();
+        if (uiUpdater != null) {
+            uiUpdater.stop();
+            uiUpdater = null;
+        }
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
