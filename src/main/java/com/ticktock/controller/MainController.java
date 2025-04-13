@@ -73,15 +73,20 @@ public class MainController {
     @FXML
     private void handleStatsPage() {
         // Load the Stats page using FXMLLoader
-        try {
-            Parent statsPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/stats.fxml")));
-            Scene statsScene = new Scene(statsPage, 500, 700);
-            // Get current window
-            Stage currentStage = (Stage) statsButton.getScene().getWindow();
-            // Set new scene for stats page
-            currentStage.setScene(statsScene);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to load stats page", e);
+        // Check if the current session is on break
+        if (currentSession == null || currentSession.isOnBreak()) {
+            try {
+                Parent statsPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/stats.fxml")));
+                Scene statsScene = new Scene(statsPage, 500, 700);
+                // Get current window
+                Stage currentStage = (Stage) statsButton.getScene().getWindow();
+                // Set new scene for stats page
+                currentStage.setScene(statsScene);
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Failed to load stats page", e);
+            }
+        }else {
+            showAlert("You can only access the stats page during break time.");
         }
     }
 
