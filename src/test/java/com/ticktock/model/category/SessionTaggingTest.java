@@ -13,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SessionTaggingTest {
 
     private SessionTagging sessionTagging;
+    private SessionTagging customSessionTagging;
 
     @BeforeEach
     void setUp() {
         sessionTagging = new SessionTagging("Module1", DefaultSessionCategory.STUDY);
+        customSessionTagging = new SessionTagging("Module2", "project");
     }
 
     @Test
@@ -27,7 +29,7 @@ class SessionTaggingTest {
 
     @Test
     void testAddCategory_PredefinedCategory() {
-        // adding a predefined category
+        // adding a predefined category for both constructors
         boolean result = sessionTagging.addCategory(DefaultSessionCategory.QUIZ_PREPARATION);
         assertTrue(result, "Category should be added");
         assertTrue(sessionTagging.getCategories().contains("QUIZ_PREPARATION"), "Category should be in the set");
@@ -66,6 +68,10 @@ class SessionTaggingTest {
         Set<String> categories = sessionTagging.getCategories();
         assertNotNull(categories, "Categories set should not be null");
         assertTrue(categories.contains("STUDY"), "Categories should contain the default 'STUDY' category");
+
+        Set<String> categories2 = customSessionTagging.getCategories();
+        assertNotNull(categories2, "Categories set should not be null");
+        assertTrue(categories2.contains("project"), "Categories should contain the 'project' category");
     }
 
     @Test
@@ -73,6 +79,12 @@ class SessionTaggingTest {
         // toString method
         String expectedString = "Module: Module1, Categories: [STUDY]";
         assertEquals(expectedString, sessionTagging.toString(), "toString should return correct string");
+    }
+
+    @Test
+    void testSetModule() {
+        sessionTagging.setModule("Module2");
+        assertEquals("Module2", sessionTagging.getModuleName(), "Module name should be correct");
     }
 }
 

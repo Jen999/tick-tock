@@ -6,6 +6,7 @@ import com.ticktock.model.duration.SessionDuration;
 import com.ticktock.service.SessionService;
 import com.ticktock.util.SessionContext;
 
+import com.ticktock.service.StorageService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -133,7 +134,6 @@ public class MainController {
 
                 SessionDuration sessionDuration = new SessionDuration(selectedDuration);
                 currentSession = new Session(sessionDuration, module, category);
-                SessionContext.setCurrentSession(currentSession);
                 currentSession.startSession();
                 sessionToggleButton.setText("Break");
                 sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
@@ -188,7 +188,7 @@ public class MainController {
                 .map(SessionDuration::getDurationPassedAsString)
                 .toList();
 
-        SessionService.createAndSaveSession(module, category, goalInMinutes, actual, totalBreakTime, breakDurations);
+        SessionService.createAndSaveSession(module, category, goalInMinutes, actual, totalBreakTime, breakDurations, StorageService.getFileName());
 
         showAlert("Session saved!");
         resetUI();

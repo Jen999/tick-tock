@@ -1,0 +1,14 @@
+[
+  {
+    "module": "cs2100",
+    "category": "proj",
+    "goalMinutes": 100,
+    "actualTime": "00:20:30",
+    "totalBreakTime": "00:10:00",
+    "breakSessions": [
+      "00:02:30",
+      "00:05:25",
+      "00:02:05"
+    ]
+  }
+]
