@@ -39,7 +39,7 @@ public class MainController {
 
     private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
     private Session currentSession;
-    private Timeline uiUpdater;
+    private static Timeline uiUpdater;
 
     /**
      * Initialize set up when FXML is loaded by TickTockApp
@@ -73,15 +73,20 @@ public class MainController {
     @FXML
     private void handleStatsPage() {
         // Load the Stats page using FXMLLoader
-        try {
-            Parent statsPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/stats.fxml")));
-            Scene statsScene = new Scene(statsPage, 500, 700);
-            // Get current window
-            Stage currentStage = (Stage) statsButton.getScene().getWindow();
-            // Set new scene for stats page
-            currentStage.setScene(statsScene);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Failed to load stats page", e);
+        // Check if the current session is on break
+        if (currentSession == null || currentSession.isOnBreak()) {
+            try {
+                Parent statsPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/stats.fxml")));
+                Scene statsScene = new Scene(statsPage, 500, 700);
+                // Get current window
+                Stage currentStage = (Stage) statsButton.getScene().getWindow();
+                // Set new scene for stats page
+                currentStage.setScene(statsScene);
+            } catch (IOException e) {
+                LOGGER.log(Level.SEVERE, "Failed to load stats page", e);
+            }
+        }else {
+            showAlert("You can only access the stats page during break time.");
         }
     }
 
@@ -134,6 +139,7 @@ public class MainController {
 
                 SessionDuration sessionDuration = new SessionDuration(selectedDuration);
                 currentSession = new Session(sessionDuration, module, category);
+                SessionContext.setCurrentSession(currentSession);
                 currentSession.startSession();
                 sessionToggleButton.setText("Break");
                 sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
@@ -200,7 +206,10 @@ public class MainController {
      * Handles updating of timer and break stopwatch
      */
     private void startUIUpdater() {
-        if (uiUpdater != null) uiUpdater.stop();
+        if (uiUpdater != null) {
+            uiUpdater.stop();
+            uiUpdater = null;
+        }
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
