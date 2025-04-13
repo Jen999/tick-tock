@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StorageServiceTest {
     private SessionRecord sessionRecordOne;
@@ -35,12 +36,7 @@ public class StorageServiceTest {
         Field[] fields = SessionRecord.class.getDeclaredFields();
 
         for (int i = 0; i < sessionRecords.size(); i++) {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                Object createdVal = field.get(sessionRecords.get(i));
-                Object savedVal = field.get(loadedSessionRecords.get(i));
-                assertEquals(createdVal, savedVal);
-            }
+            assertTrue(ServiceUtil.isSessionRecordEqual(sessionRecords.get(i), loadedSessionRecords.get(i)));
         }
     }
 
@@ -67,19 +63,17 @@ public class StorageServiceTest {
         // assert that they have the same size
         assertEquals(actualSaveData.size(), expectedSaveData.size());
 
-        Field[] fields = SessionRecord.class.getDeclaredFields();
         for (int i = 0; i < sessionRecords.size(); i++) {
-            for (Field field : fields) {
-                field.setAccessible(true);
-                Object createdVal = field.get(actualSaveData.get(i));
-                Object savedVal = field.get(expectedSaveData.get(i));
-                assertEquals(createdVal, savedVal);
-            }
+            assertTrue(ServiceUtil.isSessionRecordEqual(sessionRecords.get(i), actualSaveData.get(i)));
         }
 
         // remove the test records to clean up
         Paths.get("data/saveSessionsActual.json").toFile().deleteOnExit();
     }
 
+    @Test
+    public void getFileName() {
+        assertEquals("sessions.json", StorageService.getFileName());
+    }
 
 }
