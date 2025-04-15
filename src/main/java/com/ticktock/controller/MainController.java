@@ -9,6 +9,7 @@ import com.ticktock.util.SessionContext;
 import com.ticktock.service.StorageService;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -213,9 +214,17 @@ public class MainController {
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
-                currentSession.getTimerManager().tick(); //
+                currentSession.getTimerManager().tick();
                 timerLabel.setText(currentSession.getSessionDuration().getDurationLeftAsString());
                 breakTimeLabel.setText("Break Time: " + formatSeconds(getCurrentBreakTime()));
+                if (currentSession.getRemainingSessionTime() <= 0) {
+                    stopUIUpdater();
+
+                    Platform.runLater(() -> {
+                        handleEnd();
+                        showAlert("Congrats! You have completed your study session!");
+                    });
+                }
             }
         }));
         uiUpdater.setCycleCount(Timeline.INDEFINITE);
