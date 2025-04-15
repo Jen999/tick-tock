@@ -2,9 +2,6 @@ package com.ticktock.controller;
 
 import com.ticktock.model.duration.SessionDuration;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class TimerManager {
     private SessionDuration duration; // Total duration in ms
     private boolean isPaused;
@@ -36,7 +33,9 @@ public class TimerManager {
 
     public void tick() {
         if (!isPaused) {
-            duration.reduceTimeFromTimer(1000); // 1-second tick from UI updater
+            if (duration.getDurationLeft().getSeconds() > 0) {
+                duration.reduceTimeFromTimer(1000); // 1-second tick from UI updater
+            }
         }
     }
 }
