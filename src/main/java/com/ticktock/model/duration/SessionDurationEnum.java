@@ -1,7 +1,6 @@
 package com.ticktock.model.duration;
 
 public enum SessionDurationEnum {
-    ONE_MINUTE(SessionDuration.getNumberOfSecondsFromMinutes(1)),
     FIFTEEN_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(15)),
     THIRTY_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(30)),
     FORTY_FIVE_MINUTES(SessionDuration.getNumberOfSecondsFromMinutes(45)),
