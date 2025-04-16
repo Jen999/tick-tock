@@ -9,7 +9,8 @@ public class SessionDuration {
 
     /**
      * Constructor
-     * @param hours Number of hours for the session
+     *
+     * @param hours   Number of hours for the session
      * @param minutes Number of minutes for the session (0-59)
      * @param seconds Number of seconds for the session (0-59)
      */
@@ -29,6 +30,7 @@ public class SessionDuration {
 
     /**
      * Construct a SessionDuration object from the DefaultDuration enum
+     *
      * @param duration DefaultDuration enum
      */
     public SessionDuration(SessionDurationEnum duration) {
@@ -60,6 +62,7 @@ public class SessionDuration {
 
     /**
      * Static method to convert hours to seconds
+     *
      * @param hours Number of hours
      * @return Number of hours in seconds
      */
@@ -69,6 +72,7 @@ public class SessionDuration {
 
     /**
      * Static method to convert minutes to seconds
+     *
      * @param minutes Number of minutes
      * @return Number of minutes in seconds
      */
@@ -78,6 +82,7 @@ public class SessionDuration {
 
     /**
      * Returns a String of the duration left in HH:MM:SS
+     *
      * @return String representation of the duration object
      */
     public String getDurationLeftAsString() {
@@ -95,7 +100,9 @@ public class SessionDuration {
         return String.format("%02d:%02d:%02d", numberOfHours, numberOfMinutes, numberOfSeconds);
     }
 
-    /** Returns the corresponding SessionDurationEnum based on the current duration in seconds, or null if no match is found. */
+    /**
+     * Returns the corresponding SessionDurationEnum based on the current duration in seconds, or null if no match is found.
+     */
     public SessionDurationEnum getSessionDurationEnum() {
         for (SessionDurationEnum enumValue : SessionDurationEnum.values()) {
             if (enumValue.getNumberOfSeconds() == this.duration.getSeconds()) {

@@ -16,6 +16,7 @@ public class BreakManager {
         this.onBreak = false;
         this.breakDurations = new ArrayList<>();
     }
+
     // Start a break session
     public void startBreak() {
         if (!onBreak) {

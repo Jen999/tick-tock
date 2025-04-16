@@ -16,12 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ServiceUtil {
     /**
      * Private method to mimic loading test data from test resources
+     *
      * @param filename file to load
      * @return List of SessionRecord
      */
     static List<SessionRecord> loadSessionsFromTestResource(String resourceFolderName, String filename) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Type listType = new TypeToken<List<SessionRecord>>() {}.getType();
+        Type listType = new TypeToken<List<SessionRecord>>() {
+        }.getType();
 
         String fullPath = resourceFolderName + filename;
         Reader reader = new InputStreamReader(
@@ -30,7 +32,9 @@ public class ServiceUtil {
                 )
         );
         return gson.fromJson(reader, listType);
-    };
+    }
+
+    ;
 
     static boolean isSessionRecordEqual(SessionRecord sessionRecord1, SessionRecord sessionRecord2) {
         if (!sessionRecord1.getModule().equals(sessionRecord2.getModule())) {

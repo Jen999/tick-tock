@@ -16,9 +16,10 @@ public class Session {
 
     /**
      * Constructor for a session with default categories.
+     *
      * @param sessionDuration Total session duration in minutes.
-     * @param moduleName The module the session belongs to.
-     * @param categories One or more predefined categories.
+     * @param moduleName      The module the session belongs to.
+     * @param categories      One or more predefined categories.
      */
     public Session(SessionDuration sessionDuration, String moduleName, DefaultSessionCategory... categories) {
         this.sessionDuration = sessionDuration;
@@ -39,9 +40,10 @@ public class Session {
 
     /**
      * Constructor for a session with a custom category.
+     *
      * @param sessionDuration Total session duration in minutes.
-     * @param moduleName The module the session belongs to.
-     * @param customCategory Custom user-defined category.
+     * @param moduleName      The module the session belongs to.
+     * @param customCategory  Custom user-defined category.
      */
     public Session(SessionDuration sessionDuration, String moduleName, String customCategory) {
         this.sessionDuration = sessionDuration;
