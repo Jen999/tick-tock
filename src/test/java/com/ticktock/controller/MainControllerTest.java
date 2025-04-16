@@ -1,18 +1,11 @@
 package com.ticktock.controller;
 
-import java.lang.reflect.Field;
+
 import java.lang.reflect.Method;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
-import com.ticktock.service.SessionService;
-import com.ticktock.service.StorageService;
-import com.ticktock.model.Session;
-import com.ticktock.util.SessionContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 class MainControllerTest {
 
