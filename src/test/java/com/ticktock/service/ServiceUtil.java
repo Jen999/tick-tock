@@ -6,12 +6,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ServiceUtil {
     /**
@@ -22,8 +20,7 @@ public class ServiceUtil {
      */
     static List<SessionRecord> loadSessionsFromTestResource(String resourceFolderName, String filename) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Type listType = new TypeToken<List<SessionRecord>>() {
-        }.getType();
+        Type listType = new TypeToken<List<SessionRecord>>() {}.getType();
 
         String fullPath = resourceFolderName + filename;
         Reader reader = new InputStreamReader(
