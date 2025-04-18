@@ -47,14 +47,20 @@ session. It also handles the break feature.
 
 ##### Feature: Sessions
 The sequence diagram visualizes the interactions between the `MainController` and the model when the session is started.
+
+Precondition: No session is currently running
 ![Session_Start](./developer_guide/SessionStartSeq.svg)
 
 The sequence diagram visualizes the interactions between the `MainController` and the model when the 
 session ends.
+
+Precondition: A session/break is currently running
 ![Session_End](./developer_guide/SessionEndSeq.svg)
 
 ##### Feature: Breaks
 The sequence diagram visualizes the interactions between the `MainController` and the model when a break is started.
+
+Precondition: A session is currently running
 ![Break_View](./developer_guide/BreakSeq.svg)
 
 #### StatsController
@@ -63,6 +69,8 @@ The `StatsController` manages all interactions between the statsView and the log
 ##### Feature: Statistics
 The sequence diagram visualizes the interactions between the `StatsController` and the services to generate the 
 statistics to update the statsView
+
+Precondition: No precondition
 ![Stats_View](./developer_guide/StatsSeq.svg)
 
 ### Model
@@ -72,7 +80,17 @@ The classes in the model houses all the logic required for the creation of sessi
 The Service classes provides additional functionalities to facilitate the controllers.
 
 #### SessionService
-`SessionService` allows `MainController` to save sessions. 
+`SessionService` allows `MainController` to save sessions. This is done through the API defined for StorageService.
+Internally, SessionService depends on StorageService via
+```
+// how MainController will initiate the SessionSerivce
+SessionService.createAndSaveSession(args)
+
+// how sessionService will initiate StorageService
+StorageService.loadSessions()
+StorageService.saveSessions()
+```
+This is done to ensure that all the current sessions are loaded and the new information is appended to the storage.
 
 #### StorageService
 `StorageService` allows modules to read and write data to storage.
@@ -90,5 +108,23 @@ For each Session, it keeps track of these information:
 
 Each session potentially has a list of breaks to track, it makes sense to encapsulate all these information 
 into a single object. Thus, __json__ is the appropriate format to do so.
+
+Example structure of the json object:
+```
+Structure of /data/session.json:
+[
+  {
+    "module": "cs2100",
+    "category": "test",
+    "goalMinutes": 15,
+    "actualTime": "00:00:03",
+    "totalBreakTime": "00:00:00",
+    "breakSessions": [
+      "00:00:10",
+      "02:10:05",
+    ]
+  }
+]
+```
 
 
