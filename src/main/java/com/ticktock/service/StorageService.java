@@ -28,6 +28,8 @@ public class StorageService {
 
     /**
      * Saves a list of session records to a JSON file.
+     * @param sessions List of SessionRecord objects to be saved
+     * @param fileName File name to be saved to
      */
     public static void saveSessions(List<SessionRecord> sessions, String fileName) {
         Path savePath = FOLDER_PATH.resolve(fileName);
@@ -46,6 +48,8 @@ public class StorageService {
 
     /**
      * Loads all saved session records from the JSON file.
+     * @param fileName Name of file to be read from
+     * @return List of SessionRecords
      */
     public static List<SessionRecord> loadSessions(String fileName) {
         Path savePath = FOLDER_PATH.resolve(fileName);
