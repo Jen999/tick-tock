@@ -1,6 +1,23 @@
 # Developer Guide
 This section covers the technical documentation of TickTock.
 
+# Table of contents`
+1. [Architecture](#architecture)
+2. [Class Diagram](#class-diagram)
+3. [Implementation](#implementation)
+    1. [Entry Point](#entry-point)
+    2. [Controllers](#controllers)
+       1. [MainController](#maincontroller)
+          1. [Feature: Sessions](#feature-sessions)
+          2. [Feature: Breaks](#feature-breaks)
+       2. [StatsController](#statscontroller)
+          1. [Feature: Statistics](#feature-statistics)
+   3. [Model](#model)
+   4. [Service](#service)
+      1. [Session Service](#sessionservice)
+      2. [Storage Service](#storageservice)
+   5. [Storage](#storage)
+
 ## Architecture
 The architecture of the app follows a Model-View-Controller (MVC) pattern.
 ![Solution_Architecture](./developer_guide/SolutionArchitecture.svg)
@@ -49,6 +66,7 @@ statistics to update the statsView
 ![Stats_View](./developer_guide/StatsSeq.svg)
 
 ### Model
+The classes in the model houses all the logic required for the creation of sessions and breaks.
 
 ### Service
 The Service classes provides additional functionalities to facilitate the controllers.
