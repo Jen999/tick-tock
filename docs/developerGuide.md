@@ -1,7 +1,7 @@
 # Developer Guide
 This section covers the technical documentation of TickTock.
 
-# Table of contents`
+# Table of contents
 1. [Architecture](#architecture)
 2. [Class Diagram](#class-diagram)
 3. [Implementation](#implementation)
@@ -17,6 +17,15 @@ This section covers the technical documentation of TickTock.
       1. [Session Service](#sessionservice)
       2. [Storage Service](#storageservice)
    5. [Storage](#storage)
+
+## Prerequisites
+You can fork the repository [here](https://github.com/Jen999/tick-tock).
+
+Dependencies for the project can be found in `build.gradle`
+
+Java JDK version used: __21__
+
+Build tool: __gradle__
 
 ## Architecture
 The architecture of the app follows a Model-View-Controller (MVC) pattern.
