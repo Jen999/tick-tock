@@ -44,12 +44,14 @@ The sequence diagram visualizes the interactions between the `MainController` an
 The `StatsController` manages all interactions between the statsView and the logic.
 
 ##### Feature: Statistics
+The sequence diagram visualizes the interactions between the `StatsController` and the services to generate the 
+statistics to update the statsView
 ![Stats_View](./developer_guide/StatsSeq.svg)
 
 ### Model
 
 ### Service
-The Service classes provides additional functionalities to the model.
+The Service classes provides additional functionalities to facilitate the controllers.
 
 #### SessionService
 `SessionService` allows `MainController` to save sessions. 
