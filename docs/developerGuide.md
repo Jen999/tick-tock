@@ -29,6 +29,7 @@ Build tool: __gradle__
 
 ## Architecture
 The architecture of the app follows a Model-View-Controller (MVC) pattern.
+
 ![Solution_Architecture](./developer_guide/SolutionArchitecture.svg)
 
 The controller will be calling the application logic when it receives an input from the user.
@@ -42,6 +43,7 @@ The internal workings of the application can be summarised into 5 different comp
 ## Class Diagram
 The full class diagram is shown here. The entry point `TickTockApp` is omitted here as it does not affect the
 internal functionalities of the application.
+
 ![Full_Class_Diagram](./developer_guide/FullClassDiagram.svg)
 
 ## Implementation
@@ -58,18 +60,21 @@ session. It also handles the break feature.
 The sequence diagram visualizes the interactions between the `MainController` and the model when the session is started.
 
 Precondition: No session is currently running
+
 ![Session_Start](./developer_guide/SessionStartSeq.svg)
 
 The sequence diagram visualizes the interactions between the `MainController` and the model when the 
 session ends.
 
 Precondition: A session/break is currently running
+
 ![Session_End](./developer_guide/SessionEndSeq.svg)
 
 ##### Feature: Breaks
 The sequence diagram visualizes the interactions between the `MainController` and the model when a break is started.
 
 Precondition: A session is currently running
+
 ![Break_View](./developer_guide/BreakSeq.svg)
 
 #### StatsController
@@ -80,6 +85,7 @@ The sequence diagram visualizes the interactions between the `StatsController` a
 statistics to update the statsView
 
 Precondition: No precondition
+
 ![Stats_View](./developer_guide/StatsSeq.svg)
 
 ### Model
