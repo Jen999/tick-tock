@@ -1,6 +1,8 @@
 # Testing Guide
-This page supplements the [develop guide](developerGuide.md) and provides more information about the methodology for 
+This page supplements the [developer guide](developerGuide.md) and provides more information about the methodology for 
 testing.
+
+To head back, click [here](./developerGuide.md)
 
 ## How to run tests
 There are two main ways to run tests.
@@ -22,3 +24,7 @@ Integration Testing was done at a higher level where it incorporates lower level
 ### UI Testing <br>
 UI Testing was done briefly to ensure that the correct statistics was being displayed by the UI.
    * Examples: StatsControllerTest
+
+You have reached the end of the testing guide!
+
+To head back, click [here](./developerGuide.md)
