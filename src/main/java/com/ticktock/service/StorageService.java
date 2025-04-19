@@ -2,16 +2,20 @@ package com.ticktock.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.reflect.TypeToken;
 
 /**
  * Handles JSON reading and writing
@@ -24,6 +28,8 @@ public class StorageService {
 
     /**
      * Saves a list of session records to a JSON file.
+     * @param sessions List of SessionRecord objects to be saved
+     * @param fileName File name to be saved to
      */
     public static void saveSessions(List<SessionRecord> sessions, String fileName) {
         Path savePath = FOLDER_PATH.resolve(fileName);
@@ -42,6 +48,8 @@ public class StorageService {
 
     /**
      * Loads all saved session records from the JSON file.
+     * @param fileName Name of file to be read from
+     * @return List of SessionRecords
      */
     public static List<SessionRecord> loadSessions(String fileName) {
         Path savePath = FOLDER_PATH.resolve(fileName);
