@@ -183,6 +183,13 @@ public class MainController {
             return;
         }
 
+        /*
+        Handle the stopping and storing of ongoing break when session is ended during a break
+         */
+        if (currentSession.isOnBreak()) {
+            currentSession.stopBreak();
+        }
+
         stopUIUpdater();
 
         String module = currentSession.getSessionTagging().getModuleName();
