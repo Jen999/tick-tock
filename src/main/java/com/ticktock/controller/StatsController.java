@@ -23,16 +23,32 @@ import java.util.logging.Logger;
  * Displays overall total study time, break time, and in
  */
 public class StatsController {
-
-    @FXML private Label totalSessionsLabel;
-    @FXML private Label totalBreakTimeLabel;
-    @FXML private Label totalStudyTimeLabel;
-    @FXML private Label averageStudyTimeLabel;
-    @FXML private Label averageBreakTimeLabel;
-    @FXML private Label percentageOfStudyTimeLabel;
-    @FXML private Button backButton;
-    @FXML private Label moduleBreakdownLabel;
-    @FXML private Label categoryBreakdownLabel;
+    @FXML
+    private Label totalSessionsLabel;
+    
+    @FXML
+    private Label totalBreakTimeLabel;
+    
+    @FXML
+    private Label totalStudyTimeLabel;
+    
+    @FXML
+    private Label averageStudyTimeLabel;
+    
+    @FXML
+    private Label averageBreakTimeLabel;
+    
+    @FXML
+    private Label percentageOfStudyTimeLabel;
+    
+    @FXML
+    private Button backButton;
+    
+    @FXML
+    private Label moduleBreakdownLabel;
+    
+    @FXML
+    private Label categoryBreakdownLabel;
 
     private static final Logger LOGGER = Logger.getLogger(StatsController.class.getName());
 
