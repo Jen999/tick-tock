@@ -1,7 +1,5 @@
 package com.ticktock.service;
 
-import com.ticktock.model.duration.SessionDuration;
-
 import java.util.List;
 
 /**

@@ -6,16 +6,15 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ServiceUtil {
     /**
      * Private method to mimic loading test data from test resources
+     *
      * @param filename file to load
      * @return List of SessionRecord
      */
@@ -30,7 +29,9 @@ public class ServiceUtil {
                 )
         );
         return gson.fromJson(reader, listType);
-    };
+    }
+
+    ;
 
     static boolean isSessionRecordEqual(SessionRecord sessionRecord1, SessionRecord sessionRecord2) {
         if (!sessionRecord1.getModule().equals(sessionRecord2.getModule())) {

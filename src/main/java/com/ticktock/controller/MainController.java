@@ -1,19 +1,24 @@
 package com.ticktock.controller;
 
 import com.ticktock.model.Session;
-import com.ticktock.model.duration.SessionDurationEnum;
 import com.ticktock.model.duration.SessionDuration;
+import com.ticktock.model.duration.SessionDurationEnum;
 import com.ticktock.service.SessionService;
-import com.ticktock.util.SessionContext;
-
 import com.ticktock.service.StorageService;
+import com.ticktock.util.SessionContext;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -30,12 +35,18 @@ import java.util.logging.Logger;
  */
 public class MainController {
 
-    @FXML private TextField moduleField, categoryField;
-    @FXML private ComboBox<SessionDurationEnum> durationDropdown;
-    @FXML private Label timerLabel, breakTimeLabel;
-    @FXML private Button sessionToggleButton, endButton;
-    @FXML private ImageView hourglassImage;
-    @FXML private Button statsButton;
+    @FXML
+    private TextField moduleField, categoryField;
+    @FXML
+    private ComboBox<SessionDurationEnum> durationDropdown;
+    @FXML
+    private Label timerLabel, breakTimeLabel;
+    @FXML
+    private Button sessionToggleButton, endButton;
+    @FXML
+    private ImageView hourglassImage;
+    @FXML
+    private Button statsButton;
 
     private static final Logger LOGGER = Logger.getLogger(MainController.class.getName());
     private Session currentSession;
@@ -85,7 +96,7 @@ public class MainController {
             } catch (IOException e) {
                 LOGGER.log(Level.SEVERE, "Failed to load stats page", e);
             }
-        }else {
+        } else {
             showAlert("You can only access the stats page during break time.");
         }
     }
@@ -124,47 +135,47 @@ public class MainController {
         String label = sessionToggleButton.getText();
 
         switch (label) {
-            case "Start" -> {
+        case "Start" -> {
                 /*
                 Start session
                  */
-                String module = moduleField.getText().trim();
-                String category = categoryField.getText().trim();
-                SessionDurationEnum selectedDuration = durationDropdown.getValue();
+            String module = moduleField.getText().trim();
+            String category = categoryField.getText().trim();
+            SessionDurationEnum selectedDuration = durationDropdown.getValue();
 
-                if (module.isEmpty() || category.isEmpty() || selectedDuration == null) {
-                    showAlert("Please fill in all fields: Module, Category, and Duration.");
-                    return;
-                }
-
-                SessionDuration sessionDuration = new SessionDuration(selectedDuration);
-                currentSession = new Session(sessionDuration, module, category);
-                SessionContext.setCurrentSession(currentSession);
-                currentSession.startSession();
-                sessionToggleButton.setText("Break");
-                sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
-                startUIUpdater();
+            if (module.isEmpty() || category.isEmpty() || selectedDuration == null) {
+                showAlert("Please fill in all fields: Module, Category, and Duration.");
+                return;
             }
+
+            SessionDuration sessionDuration = new SessionDuration(selectedDuration);
+            currentSession = new Session(sessionDuration, module, category);
+            SessionContext.setCurrentSession(currentSession);
+            currentSession.startSession();
+            sessionToggleButton.setText("Break");
+            sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
+            startUIUpdater();
+        }
             /*
             Start break and pause session
              */
-            case "Break" -> {
-                if (currentSession != null && !currentSession.isOnBreak()) {
-                    currentSession.startBreak();
-                    sessionToggleButton.setText("Resume");
-                    sessionToggleButton.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"); // yellow
-                }
+        case "Break" -> {
+            if (currentSession != null && !currentSession.isOnBreak()) {
+                currentSession.startBreak();
+                sessionToggleButton.setText("Resume");
+                sessionToggleButton.setStyle("-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;"); // yellow
             }
+        }
             /*
             End break and resume session
              */
-            case "Resume" -> {
-                if (currentSession != null && currentSession.isOnBreak()) {
-                    currentSession.stopBreak();
-                    sessionToggleButton.setText("Break");
-                    sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
-                }
+        case "Resume" -> {
+            if (currentSession != null && currentSession.isOnBreak()) {
+                currentSession.stopBreak();
+                sessionToggleButton.setText("Break");
+                sessionToggleButton.setStyle("-fx-background-color: #FFC107; -fx-text-fill: black; -fx-font-size: 16px;"); // yellow
             }
+        }
         }
     }
 
@@ -176,6 +187,13 @@ public class MainController {
         if (currentSession == null) {
             showAlert("No active session.");
             return;
+        }
+
+        /*
+        Handle the stopping and storing of ongoing break when session is ended during a break
+         */
+        if (currentSession.isOnBreak()) {
+            currentSession.stopBreak();
         }
 
         stopUIUpdater();
@@ -213,9 +231,17 @@ public class MainController {
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
-                currentSession.getTimerManager().tick(); //
+                currentSession.getTimerManager().tick();
                 timerLabel.setText(currentSession.getSessionDuration().getDurationLeftAsString());
                 breakTimeLabel.setText("Break Time: " + formatSeconds(getCurrentBreakTime()));
+                if (currentSession.getRemainingSessionTime() <= 0) {
+                    stopUIUpdater();
+
+                    Platform.runLater(() -> {
+                        handleEnd();
+                        showAlert("Congrats! You have completed your study session!");
+                    });
+                }
             }
         }));
         uiUpdater.setCycleCount(Timeline.INDEFINITE);

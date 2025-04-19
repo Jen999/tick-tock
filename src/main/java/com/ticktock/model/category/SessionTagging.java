@@ -13,7 +13,8 @@ public class SessionTagging {
 
     /**
      * Constructor for predefined category.
-     * @param moduleName Name of the module.
+     *
+     * @param moduleName      Name of the module.
      * @param defaultCategory Default category.
      */
     public SessionTagging(String moduleName, DefaultSessionCategory defaultCategory) {
@@ -24,7 +25,8 @@ public class SessionTagging {
 
     /**
      * Constructor for custom category.
-     * @param moduleName Name of the module.
+     *
+     * @param moduleName     Name of the module.
      * @param customCategory Custom category name.
      */
     public SessionTagging(String moduleName, String customCategory) {
@@ -35,6 +37,7 @@ public class SessionTagging {
 
     /**
      * Gets the module name.
+     *
      * @return Module name as string.
      */
     public String getModuleName() {
@@ -43,13 +46,16 @@ public class SessionTagging {
 
     /**
      * Replace the current module with a new one.
+     *
      * @param moduleName New module name.
      */
     public void setModule(String moduleName) {
         this.module = new Module(moduleName);
     }
+
     /**
      * Adds a predefined category.
+     *
      * @param category Default session category.
      * @return true if added, false if already exists.
      */
@@ -60,6 +66,7 @@ public class SessionTagging {
 
     /**
      * Adds a custom user-defined category.
+     *
      * @param category Custom category name.
      * @return true if added, false if already exists.
      */
@@ -69,6 +76,7 @@ public class SessionTagging {
 
     /**
      * Removes a category.
+     *
      * @param category Category name to remove.
      * @return true if removed, false if not found.
      */
@@ -78,6 +86,7 @@ public class SessionTagging {
 
     /**
      * Gets all categories.
+     *
      * @return Set of category names.
      */
     public Set<String> getCategories() {

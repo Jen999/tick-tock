@@ -20,6 +20,7 @@ public enum SessionDurationEnum {
 
     /**
      * Returns the DefaultDuration in HH:MM:SS format
+     *
      * @return String representation of the Duration object
      */
     public String toString() {
