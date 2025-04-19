@@ -29,12 +29,20 @@ To start a study session:
 1. Launch the TickTock app.
 2. Enter a module title (e.g., `CS2103DE`).
 3. Enter a category (e.g., `Tutorial`).
-4. Select a duration (e.g., `45 mins`).
+4. Select a duration (e.g., `45 mins`). If either module, category or duration are not filled, you will see the alert **"Please fill in all fields: Module, Category, and Duration."**
+   ![Screenshot of photo](images/blankwarn.jpg)
 5. Click **Start** to begin your session.
+   ![Screenshot of photo](images/start.jpg)
+6. Click **Break** to start the break session.
+   ![Screenshot of photo](images/break.jpg)
+7. Click **End** to end the study session. You will see the alert "Session Saved!"
+   ![Screenshot of photo](images/end.jpg)
 
 To view study statistics:
 
 1. When a session has not started or is currently on a break, click the **pie chart icon** located at the top right corner of the app window.
+   ![Screenshot of photo](images/pie.jpg) If the session is ongoing and the user clicks the pie chart icon, the user will see the alert **"You can only access the stats page during break time or when the session has ended."**
+   ![Screenshot of photo](images/breakwarn.jpg)
 2. A breakdown of your study history across previous sessions will be shown. This includes:
 
     - **Total Sessions**
@@ -42,7 +50,10 @@ To view study statistics:
     - **Average Study Time**
     - **Total Break Time**
     - **Average Break Time**
-    - **Percentage of Time Spent Studying** 
+    - **Percentage of Time Spent Studying**
+    - **Study Time by Module**
+    - **Study Time by Tag**
+    ![Screenshot of photo](images/stats.jpg)
 ## Features 
 
 ### Sessions
@@ -70,6 +81,8 @@ These statistics include:
 - **Total Break Time** – Total time spent on breaks.
 - **Average Break Time** – Average length of a break.
 - **Study Percentage** – Proportion of time spent studying compared to total session time (study + breaks).
+- **Study Time by Module** - Time spent studying per module 
+- **Study Time by Tag** - Time spent studying per category (lectures, tutorials, readings)
 
 With these metrics, users can reflect on their consistency, evaluate time management, and make informed adjustments to improve their study routine.
 
