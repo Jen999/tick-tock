@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,21 +23,32 @@ import java.util.logging.Logger;
  * Displays overall total study time, break time, and in
  */
 public class StatsController {
-
     @FXML
     private Label totalSessionsLabel;
+    
     @FXML
     private Label totalBreakTimeLabel;
+    
     @FXML
     private Label totalStudyTimeLabel;
+    
     @FXML
     private Label averageStudyTimeLabel;
+    
     @FXML
     private Label averageBreakTimeLabel;
+    
     @FXML
     private Label percentageOfStudyTimeLabel;
+    
     @FXML
     private Button backButton;
+    
+    @FXML
+    private Label moduleBreakdownLabel;
+    
+    @FXML
+    private Label categoryBreakdownLabel;
 
     private static final Logger LOGGER = Logger.getLogger(StatsController.class.getName());
 
@@ -98,6 +111,37 @@ public class StatsController {
 
         // Display percentage of time spent studying
         percentageOfStudyTimeLabel.setText("% of time spent studying: " + percentageOfTimeStudying + "%");
+
+        //store module name and total study time
+        Map<String, Long> moduleTimes = new HashMap<>();
+        for (SessionRecord session : sessions) {
+            long studyTime = parseTime(session.getActualTime());
+            long breakTime = parseTime(session.getTotalBreakTime());
+
+            totalStudyTimeSeconds += studyTime;
+            totalBreakTimeSeconds += breakTime;
+
+            String module = session.getModule();
+            moduleTimes.put(module, moduleTimes.getOrDefault(module, 0L) + studyTime);
+        }
+        // Module breakdown
+        StringBuilder breakdown = new StringBuilder("Study Time by Module:\n");
+        for (Map.Entry<String, Long> entry : moduleTimes.entrySet()) {
+            breakdown.append("- ").append(entry.getKey()).append(": ").append(formatTime(entry.getValue())).append("\n");
+        }
+        moduleBreakdownLabel.setText(breakdown.toString().trim());
+        // Category breakdown
+        Map<String, Long> categoryTimes = new HashMap<>();
+        for (SessionRecord session : sessions) {
+            long studyTime = parseTime(session.getActualTime());
+            String category = session.getCategory();
+            categoryTimes.put(category, categoryTimes.getOrDefault(category, 0L) + studyTime);
+        }
+        StringBuilder categoryBreakdown = new StringBuilder("Study Time by Tag:\n");
+        for (Map.Entry<String, Long> entry : categoryTimes.entrySet()) {
+            categoryBreakdown.append("- ").append(entry.getKey()).append(": ").append(formatTime(entry.getValue())).append("\n");
+        }
+        categoryBreakdownLabel.setText(categoryBreakdown.toString().trim());
     }
 
     private long parseTime(String time) {
