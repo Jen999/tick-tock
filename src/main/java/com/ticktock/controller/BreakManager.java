@@ -6,18 +6,26 @@ import com.ticktock.model.duration.SessionDuration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * BreakManager manages all the break durations for the current session
+ * Each session object has a break manager
+ */
 public class BreakManager {
     private boolean onBreak;
     private long breakStartTime;
     private List<SessionDuration> breakDurations; // Stores all break durations
     private SessionDuration currentBreakSession = null;
 
+    /**
+     * Constructor
+     */
     public BreakManager() {
         this.onBreak = false;
         this.breakDurations = new ArrayList<>();
     }
 
     // Start a break session
+
     public void startBreak() {
         if (!onBreak) {
             onBreak = true;
@@ -29,7 +37,9 @@ public class BreakManager {
         }
     }
 
-    // Stop the current break and store the duration
+    /**
+     * Stops the current break and stores it, else do nothing
+     */
     public void stopBreak() {
         if (onBreak && currentBreakSession != null) {
             onBreak = false;
@@ -47,6 +57,11 @@ public class BreakManager {
         }
     }
 
+    /**
+     * Get the total break time for being tracked by BreakManager
+     * @return The total break time for the current session, truncating the decimal point (Example: 1500 milliseconds
+     * returns 1 second)
+     */
     public long getTotalBreakTime() {
         long totalBreakTime = 0;
         for (SessionDuration duration : breakDurations) {
@@ -55,8 +70,12 @@ public class BreakManager {
         return totalBreakTime / 1000;
     }
 
+    /**
+     * Returns a copy of the list of breakDurations in BreakManager
+     * @return A copy of breakDurations to prevent modification
+     */
     public List<SessionDuration> getBreakDurations() {
-        return new ArrayList<>(breakDurations); // Return a copy to prevent modification
+        return new ArrayList<>(breakDurations);
     }
 
     public long getBreakStartTime() {

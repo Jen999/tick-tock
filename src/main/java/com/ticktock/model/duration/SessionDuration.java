@@ -2,6 +2,9 @@ package com.ticktock.model.duration;
 
 import java.time.Duration;
 
+/**
+ * Class that holds the Duration objects for the current Session
+ */
 public class SessionDuration {
     private final Duration duration;
     private Duration durationLeft;
@@ -21,6 +24,12 @@ public class SessionDuration {
         durationPassed = Duration.ofSeconds(Duration.ZERO.getSeconds());
     }
 
+    /**
+     * Construct a SessionDuration object from seconds. This constructor should only be used to track the amount of
+     * time that has passed and should not be used to manage a countdown. To achieve this functionality, use the
+     * constructor SessionDuration(long hours, long minutes, long seconds) instead.
+     * @param seconds Number of seconds that has passed
+     */
     public SessionDuration(long seconds) {
         assert seconds >= 0;
         duration = Duration.ofSeconds(seconds);

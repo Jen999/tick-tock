@@ -1,19 +1,24 @@
 package com.ticktock.controller;
 
 import com.ticktock.model.Session;
-import com.ticktock.model.duration.SessionDurationEnum;
 import com.ticktock.model.duration.SessionDuration;
+import com.ticktock.model.duration.SessionDurationEnum;
 import com.ticktock.service.SessionService;
-import com.ticktock.util.SessionContext;
-
 import com.ticktock.service.StorageService;
+import com.ticktock.util.SessionContext;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -184,6 +189,13 @@ public class MainController {
             return;
         }
 
+        /*
+        Handle the stopping and storing of ongoing break when session is ended during a break
+         */
+        if (currentSession.isOnBreak()) {
+            currentSession.stopBreak();
+        }
+
         stopUIUpdater();
 
         String module = currentSession.getSessionTagging().getModuleName();
@@ -219,9 +231,17 @@ public class MainController {
 
         uiUpdater = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             if (currentSession != null) {
-                currentSession.getTimerManager().tick(); //
+                currentSession.getTimerManager().tick();
                 timerLabel.setText(currentSession.getSessionDuration().getDurationLeftAsString());
                 breakTimeLabel.setText("Break Time: " + formatSeconds(getCurrentBreakTime()));
+                if (currentSession.getRemainingSessionTime() <= 0) {
+                    stopUIUpdater();
+
+                    Platform.runLater(() -> {
+                        handleEnd();
+                        showAlert("Congrats! You have completed your study session!");
+                    });
+                }
             }
         }));
         uiUpdater.setCycleCount(Timeline.INDEFINITE);

@@ -1,11 +1,11 @@
 package com.ticktock.model;
 
+import com.ticktock.controller.BreakManager;
+import com.ticktock.controller.TimerManager;
+import com.ticktock.model.breaks.BreakSummary;
 import com.ticktock.model.category.DefaultSessionCategory;
 import com.ticktock.model.category.SessionTagging;
-import com.ticktock.controller.TimerManager;
-import com.ticktock.controller.BreakManager;
 import com.ticktock.model.duration.SessionDuration;
-import com.ticktock.model.breaks.BreakSummary;
 import com.ticktock.model.duration.SessionDurationEnum;
 
 public class Session {

@@ -4,6 +4,9 @@ import com.ticktock.model.duration.SessionDuration;
 
 import java.util.List;
 
+/**
+ * Class that encapsulates the totalBreakTime and all the SessionDuration objects for the breaks
+ */
 public class BreakSummary {
     private final long totalBreakTimeInSeconds;
     private final List<SessionDuration> breakDurations;
