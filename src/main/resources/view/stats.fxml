@@ -46,6 +46,8 @@
                 <Label fx:id="totalBreakTimeLabel" style="-fx-font-size: 16px; -fx-text-fill: #000000;" />
                 <Label fx:id="averageBreakTimeLabel" style="-fx-font-size: 16px; -fx-text-fill: #000000;" />
                 <Label fx:id="percentageOfStudyTimeLabel" style="-fx-font-size: 16px; -fx-text-fill: #000000;" />
+                <Label fx:id="moduleBreakdownLabel" style="-fx-font-size: 16px; -fx-text-fill: #000000;" />
+                <Label fx:id="categoryBreakdownLabel" style="-fx-font-size: 16px; -fx-text-fill: #000000;" />
             </VBox>
         </VBox>
     </center>
