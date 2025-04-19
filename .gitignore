@@ -10,4 +10,4 @@ out/
 # Logs and temporary files
 *.log
 bin/
-data/
+.DS_Store
