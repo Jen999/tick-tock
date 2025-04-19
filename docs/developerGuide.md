@@ -17,6 +17,7 @@ This section covers the technical documentation of TickTock.
       1. [Session Service](#sessionservice)
       2. [Storage Service](#storageservice)
    5. [Storage](#storage)
+4. [Testing](#testing)
 
 ## Prerequisites
 You can fork the repository [here](https://github.com/Jen999/tick-tock).
@@ -142,4 +143,9 @@ Structure of /data/session.json:
 ]
 ```
 
+## Testing
+To learn more about the testing framework and how to conduct your tests, refer to this [guide](./testingGuide.md) 
+for more information!
 
+You have reached the end of the developer guide!
+To head back, click [here](./README.md)
