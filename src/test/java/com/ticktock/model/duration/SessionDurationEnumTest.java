@@ -20,7 +20,8 @@ public class SessionDurationEnumTest {
         durationFourtyFiveMinutes = SessionDurationEnum.FORTY_FIVE_MINUTES;
         durationOneHour = SessionDurationEnum.ONE_HOUR;
         durationTwoHours = SessionDurationEnum.TWO_HOURS;
-        durationThreeHours = SessionDurationEnum.THREE_HOURS;}
+        durationThreeHours = SessionDurationEnum.THREE_HOURS;
+    }
 
     @Test
     public void getNumberOfSeconds() {

@@ -1,4 +1,5 @@
 package com.ticktock.util;
+
 import com.ticktock.model.Session;
 
 public class SessionContext {

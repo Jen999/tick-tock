@@ -20,7 +20,8 @@ class StatsControllerTest {
     @BeforeAll
     public static void setUpJavaFX() {
         System.setProperty("javafx.application.headless", "true");
-        Platform.startup(() -> {}); // Initialize the JavaFX platform for background tasks
+        Platform.startup(() -> {
+        }); // Initialize the JavaFX platform for background tasks
     }
 
     @BeforeEach

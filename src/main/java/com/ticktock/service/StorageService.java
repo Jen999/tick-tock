@@ -60,7 +60,8 @@ public class StorageService {
             }
 
             try (Reader reader = new FileReader(savePath.toString())) {
-                Type listType = new TypeToken<List<SessionRecord>>() {}.getType();
+                Type listType = new TypeToken<List<SessionRecord>>() {
+                }.getType();
                 return gson.fromJson(reader, listType);
             }
         } catch (IOException e) {

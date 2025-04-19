@@ -26,7 +26,7 @@ public class StorageServiceTest {
 
     @Test
     public void loadSessions() throws Exception {
-        List<SessionRecord>  loadedSessionRecords = ServiceUtil.loadSessionsFromTestResource(RESOURCE_FOLDER, "/loadSessions.json");
+        List<SessionRecord> loadedSessionRecords = ServiceUtil.loadSessionsFromTestResource(RESOURCE_FOLDER, "/loadSessions.json");
 
         List<SessionRecord> sessionRecords = new ArrayList<>();
         sessionRecords.add(sessionRecordOne);

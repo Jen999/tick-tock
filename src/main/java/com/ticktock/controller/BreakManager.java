@@ -24,9 +24,8 @@ public class BreakManager {
         this.breakDurations = new ArrayList<>();
     }
 
-    /**
-     * Starts a break if not on break else do nothing
-     */
+    // Start a break session
+
     public void startBreak() {
         if (!onBreak) {
             onBreak = true;
