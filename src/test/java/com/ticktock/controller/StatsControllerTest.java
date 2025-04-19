@@ -37,6 +37,8 @@ class StatsControllerTest {
         setField(statsController, "averageStudyTimeLabel", new Label());
         setField(statsController, "averageBreakTimeLabel", new Label());
         setField(statsController, "percentageOfStudyTimeLabel", new Label());
+        setField(statsController, "moduleBreakdownLabel", new Label());
+        setField(statsController, "categoryBreakdownLabel", new Label());
     }
 
     private void setField(Object object, String fieldName, Object value) throws Exception {
@@ -59,7 +61,16 @@ class StatsControllerTest {
             try {
                 assertEquals("Total Sessions: 2", getLabelText("totalSessionsLabel"));
                 assertEquals("Total Study Time: 03:30:00", getLabelText("totalStudyTimeLabel"));
-                assertEquals("Total Break Time: 00:45:00", getLabelText("totalBreakTimeLabel"));
+                assertEquals("Average Study Time: 01:45:00", getLabelText("averageStudyTimeLabel"));
+                assertEquals("Total Break Time: 01:15:00", getLabelText("totalBreakTimeLabel"));
+                assertEquals("Average Break Time: 00:37:30", getLabelText("averageBreakTimeLabel"));
+                assertEquals("% of time spent studying: 73.68%", getLabelText("percentageOfStudyTimeLabel"));
+                String moduleBreakdown = getLabelText("moduleBreakdownLabel");
+                assertTrue(moduleBreakdown.contains("Module1: 01:30:00"));
+                assertTrue(moduleBreakdown.contains("Module2: 02:00:00"));
+                String categoryBreakdown = getLabelText("categoryBreakdownLabel");
+                assertTrue(categoryBreakdown.contains("Category1: 01:30:00"));
+                assertTrue(categoryBreakdown.contains("Category2: 02:00:00"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
