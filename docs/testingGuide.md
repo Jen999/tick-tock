@@ -2,7 +2,6 @@
 This page supplements the [developer guide](developerGuide.md) and provides more information about the methodology for 
 testing.
 
-To head back, click [here](./developerGuide.md)
 
 ## How to run tests
 There are two main ways to run tests.
@@ -17,10 +16,12 @@ __NOTE:__ If you encounter an error such that the tests do not start, you can tr
 Unit Testing was done for the lowest level modules that are within their own submodules. These tests ensure that the 
    internal functionality of the application works as expected.
    * Examples: SessionDurationTest, StorageServiceTest
+
 ### Integration Testing
 Integration Testing was done at a higher level where it incorporates lower level modules and test their interactions 
    with each other.
    * Examples: SessionTest, SessionServiceTest
+
 ### UI Testing <br>
 UI Testing was done briefly to ensure that the correct statistics was being displayed by the UI.
    * Examples: StatsControllerTest
