@@ -14,11 +14,11 @@ TickTock is a study timer app that allows you to track your study sessions by mo
 - [Tips and Best Practices](#tips-and-best-practices)
 
 ## Getting Started 
-- Ensure **Java 21** is installed on your computer.
+- Ensure **Java 21** is installed on your computer. to simplify the setup, we recommend using Azul Zulu JDK 21 FX. It can be downloaded [here](#). *(https://www.azul.com/downloads/?version=java-21-lts&package=jdk-fx#zulu)*
 - Download `tick-tock.jar` from [here](#). *(link)*
 - Open your terminal.
 - Navigate to the folder containing the `tick-tock.jar` file.
-- Run the command: `java -jar tick-tock.jar`
+- Run the command: `java -jar tick-tock.jar` if unable to run, if your javafx sdk is stored in C:\javafx-sdk-17 then run it with `java --module-path C:\javafx-sdk-21.0.7\lib --add-modules javafx.controls,javafx.fxml -jar tick-tock.jar`
 
 ## Video Demonstration
 [Click here to download and watch the video!](https://github.com/Jen999/tick-tock/raw/master/docs/video/CS2103DE_ticktock_demo.mp4)
