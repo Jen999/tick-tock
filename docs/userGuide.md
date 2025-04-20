@@ -5,13 +5,13 @@ TickTock is a study timer app that allows you to track your study sessions by mo
 
 ## Table of Contents
 - [Getting Started](#getting-started)
+- [Video Demonstration](#video-demonstration)
 - [Using TickTock](#using-ticktock)
     - [Starting a Study Session](#starting-a-study-session)
     - [Viewing Study History](#viewing-study-history)
 - [Features](#features)
     - [Sessions](#sessions)
     - [Study Statistics](#study-insights)
-- [Tips and Best Practices](#tips-and-best-practices)
 
 ## Getting Started 
 - Ensure **Java 21** is installed on your computer. to simplify the setup, we recommend using Azul Zulu JDK 21 FX. It can be downloaded [here](https://www.azul.com/downloads/?version=java-21-lts&package=jdk-fx#zulu).
