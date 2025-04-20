@@ -20,6 +20,8 @@ TickTock is a study timer app that allows you to track your study sessions by mo
 - Navigate to the folder containing the `tick-tock.jar` file.
 - Run the command: `java -jar tick-tock.jar`
 
+## Video Demonstration
+[Video](./video/CS2103DE_ticktock_demo.mp4)
 
 ## Using TickTock
 
